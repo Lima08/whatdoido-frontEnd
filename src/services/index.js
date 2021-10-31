@@ -1,16 +1,18 @@
 import axios from 'axios';
 
-/* Faz uma requisição do tipo GET */
-async function addNewUser(body) {
-  axios
-  .post('http://localhost:3000/users/', body)
+
+
+async function authentication(body) {
+  const result = await axios
+  .post('http://localhost:3000/login', body)
   .then((response) => response)
   .catch((error) => {
     console.log(error);
   });
+  return result;
 }
 
-
-
-
-  export default addNewUser;
+const services = {
+  authentication,
+}
+  export default services;

@@ -1,11 +1,12 @@
 import React from 'react';
+import TodoProvider from '../../context/todoProvider';
 import TodoBoard from '../TodoBoard/index';
 
 function Home() {
   return (
-    <div className='Home'>
+    <TodoProvider>
       <TodoBoard />
-    </div>
+    </TodoProvider>
   );
 }
 
