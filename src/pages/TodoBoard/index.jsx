@@ -1,21 +1,22 @@
 import React from 'react';
-// import TodoCard from '../../components/TodoCard';
-// import mockData from '../../mockData';
+import TodoCard from '../../components/TodoCard';
 import { useState, useContext } from 'react';
 import services from '../../services';
 import TodoContext from '../../context/TodoContext';
 
-//  Quando logar apagar informações dos imputs e passar para o header
-//
-
 function TodoBoard() {
-  const { setToken } = useContext(TodoContext);
+  const { setToken, todos } = useContext(TodoContext);
   const [email, setEmail] = useState('');
   const [password, setPAssword] = useState('');
 
   async function submitLogin() {
     const result = await services.authentication({ email, password });
-    if (!result.data) alert('Erro de conexão! Tente novamente');
+
+    if (result.error) {
+      alert(`${result.error}`);
+      return;
+    }
+
     setToken(result.data.token);
   }
 
@@ -40,11 +41,11 @@ function TodoBoard() {
         </button>
       </form>
 
-      {/* <div>
-        {mockData.map((todo, index) => (
+      <div>
+        {todos.map((todo, index) => (
           <TodoCard key={index} todoList={todo} />
         ))}
-      </div> */}
+      </div>
     </>
   );
 }
