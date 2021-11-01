@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useState, useContext } from 'react';
 import TodoCard from '../../components/TodoCard';
-import { useState, useContext } from 'react';
 import services from '../../services';
 import TodoContext from '../../context/TodoContext';
 
 function TodoBoard() {
-  const { setToken, todos } = useContext(TodoContext);
+  const { setHeaders, todos } = useContext(TodoContext);
   const [email, setEmail] = useState('');
   const [password, setPAssword] = useState('');
 
@@ -13,11 +12,11 @@ function TodoBoard() {
     const result = await services.authentication({ email, password });
 
     if (result.error) {
-      alert(`${result.error}`);
+      alert(`${result.error.response.data.message}`);
       return;
     }
 
-    setToken(result.data.token);
+    setHeaders({ headers: { authorization: result.data.headers } });
   }
 
   return (

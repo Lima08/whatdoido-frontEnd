@@ -4,20 +4,14 @@ import services from '../services';
 
 function TodoProvider({ children }) {
   const [todos, setTodos] = useState([]);
-  const [token, setToken] = useState('');
-
-  const config = {
-    headers: {
-      authorization: token,
-    },
-  };
+  const [headers, setHeaders] = useState({ headers: { authorization: '' } });
 
   useEffect(() => {
     async function getTodos() {
-      const result = await services.getAllTodo(config);
+      const result = await services.getAllTodo(headers);
 
       if (result.error) {
-        alert(`${result.error}`);
+      alert(`${result.error.response.data.message}`);
         return;
       }
 
@@ -25,12 +19,12 @@ function TodoProvider({ children }) {
     }
 
     getTodos();
-    console.log('teste se esta rodando')
-  }, [token]);
+  }, [headers]);
 
   const storage = {
     todos,
-    setToken,
+    setHeaders,
+    headers,
     setTodos,
   };
 

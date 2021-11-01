@@ -20,8 +20,19 @@ async function getAllTodo(headers) {
   return result;
 }
 
+async function excludeTodoById(id, headers) {
+  const result = await axios
+    .get(`http://localhost:3000/todo/${id}`, headers)
+    .then((response) => response)
+    .catch((error) => {
+      return { error };
+    });
+  return result;
+}
+
 const services = {
   authentication,
   getAllTodo,
+  excludeTodoById,
 };
 export default services;

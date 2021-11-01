@@ -1,8 +1,12 @@
-import React from 'react';
+import React, { useContext }  from 'react';
+import services from '../../services';
 import PropTypes from 'prop-types';
+import TodoContext from '../../context/TodoContext';
+
 
 function TodoCard({ todoList }) {
-  const { title, date, status, description } = todoList;
+  const { title, date, status, description, _id: id } = todoList;
+  const { headers } = useContext(TodoContext);
 
   return (
     // No clicar nessa div o usuario será direcionado para a tele de nova tarefa.
@@ -11,7 +15,8 @@ function TodoCard({ todoList }) {
       <p>{status}</p>
       <h2>{title}</h2>
       <p>{description}</p>
-      <button>X</button>
+      <button
+        onClick={()=> services.excludeTodoById(id, headers)}>X</button>
     </div>
   );
 }
