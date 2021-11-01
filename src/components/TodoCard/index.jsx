@@ -72,7 +72,7 @@ function TodoCard({ todoList }) {
           >
             <option value='Pendente'>Pendente</option>
             <option value='Em andamento'>Em andamento</option>
-            <option value='Concluido'>Concluido</option>
+            <option value='Concluído'>Concluido</option>
           </select>
         </label>
 

@@ -25,8 +25,8 @@ function TodoBoard() {
     });
   }
 
-  return (
-    <>
+  function formLogin() {
+    return (
       <form action=''>
         <input
           type='email'
@@ -45,8 +45,35 @@ function TodoBoard() {
           Logar
         </button>
       </form>
+    );
+  }
 
+  function menu() {
+    return (
       <div>
+        <label>
+          status
+          <select
+          // value={taskStatusFilter}
+          // onChange={({ target }) => filterByStatus(target.value, todosRender, setTodosRender)}
+          >
+            <option value=''>Todas</option>
+            <option value='Pendente'>Pendente</option>
+            <option value='Em andamento'>Em andamento</option>
+            <option value='Concluído'>Concluido</option>
+          </select>
+        </label>
+        <button type='button'>Nova</button>
+        <button type='button'>Ordem alfabética</button>
+      </div>
+    );
+  }
+
+  return (
+    <>
+      <div>
+        {formLogin()}
+        {menu()}
         {todos.map((todo, index) => (
           <TodoCard key={index} todoList={todo} />
         ))}
