@@ -22,7 +22,7 @@ async function getAllTodo(headers) {
 
 async function excludeTodoById(id, headers) {
   const result = await axios
-    .get(`http://localhost:3000/todo/${id}`, headers)
+    .delete(`http://localhost:3000/todo/${id}`, headers)
     .then((response) => response)
     .catch((error) => {
       return { error };

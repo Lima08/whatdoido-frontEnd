@@ -23,9 +23,9 @@ function TodoProvider({ children }) {
 
   const storage = {
     todos,
-    setHeaders,
-    headers,
     setTodos,
+    headers,
+    setHeaders,
   };
 
   return (
