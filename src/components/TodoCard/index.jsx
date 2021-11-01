@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import TodoContext from '../../context/TodoContext';
 
 function TodoCard({ todoList }) {
-  const { headers, todos, setTodos } = useContext(TodoContext);
+  const { headers, setHeaders, todos, setTodos } = useContext(TodoContext);
   const { _id: id } = todoList;
 
   const [editMode, setEditMode] = useState(false);
@@ -46,13 +46,19 @@ function TodoCard({ todoList }) {
     );
   }
 
-  function saveTask() {
-    //  Aqui vira a função que salvara a task no banco e atualiza a lista renderizada
+  async function saveTask() {
+    await setHeaders({
+      ...headers,
+      method: 'PUT',
+      body: JSON.stringify({ date, status, title, description }),
+    });
+
+    console.log('headers teste', headers)
+    await services.updateTodoById(id, headers);
     setEditMode(false);
   }
 
   function taskEditor() {
-    //  colocar labels?
     return (
       <forms>
         <input

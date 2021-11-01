@@ -30,9 +30,20 @@ async function excludeTodoById(id, headers) {
   return result;
 }
 
+async function updateTodoById(id, headers) {
+  const result = await axios
+    .put(`http://localhost:3000/todo/${id}`, headers)
+    .then((response) => response)
+    .catch((error) => {
+      return { error };
+    });
+  return result;
+}
+
 const services = {
   authentication,
   getAllTodo,
   excludeTodoById,
+  updateTodoById,
 };
 export default services;

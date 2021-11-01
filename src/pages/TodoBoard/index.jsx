@@ -16,7 +16,13 @@ function TodoBoard() {
       return;
     }
 
-    setHeaders({ headers: { authorization: result.data.token } });
+    setHeaders({
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        authorization: result.data.token,
+      },
+    });
   }
 
   return (
