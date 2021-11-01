@@ -7,10 +7,17 @@ function TodoCard({ todoList }) {
   const { title, date, status, description, _id: id } = todoList;
   const { headers, todos, setTodos } = useContext(TodoContext);
 
-  function excludeItem() {
+  async function excludeItem() {
+    console.log('teste ', todoList)
+    const result = await services.excludeTodoById(id, headers);
+    
+    if (result.error) {
+      alert(`${result.error.response.data.message}`);
+      return;
+    }
+    
     const newList = todos.filter((item) => item._id !== id);
     setTodos(newList);
-    services.excludeTodoById(id, headers);
   }
 
   return (
