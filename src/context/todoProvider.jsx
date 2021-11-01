@@ -4,7 +4,7 @@ import services from '../services';
 
 function TodoProvider({ children }) {
   const [todos, setTodos] = useState([]);
-  const [headers, setHeaders] = useState({ headers: { authorization: '' } });
+  const [headers, setHeaders] = useState({ headers: { 'Content-Type': 'application/json',authorization: '' } });
 
   useEffect(() => {
     async function getTodos() {
