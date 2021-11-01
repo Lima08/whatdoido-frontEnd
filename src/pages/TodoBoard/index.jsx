@@ -8,14 +8,14 @@ function TodoBoard() {
   const [email, setEmail] = useState('');
   const [password, setPAssword] = useState('');
 
-  async function submitLogin() {
+  async function submitLogin(event) {
+    event.preventDefault();
     const result = await services.authentication({ email, password });
 
     if (result.error) {
       alert(`${result.error.response.data.message}`);
       return;
     }
-
     setHeaders({
       headers: {
         Accept: 'application/json',
@@ -41,7 +41,7 @@ function TodoBoard() {
           onChange={(e) => setPAssword(e.target.value)}
         />
 
-        <button type='button' onClick={() => submitLogin()}>
+        <button type='submit' onClick={(e) => submitLogin(e)}>
           Logar
         </button>
       </form>

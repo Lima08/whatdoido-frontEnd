@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import TodoContext from '../../context/TodoContext';
 
 function TodoCard({ todoList }) {
-  const { headers, setHeaders, todos, setTodos } = useContext(TodoContext);
+  const { headers, todos, setTodos } = useContext(TodoContext);
   const { _id: id } = todoList;
 
   const [editMode, setEditMode] = useState(false);
@@ -46,21 +46,18 @@ function TodoCard({ todoList }) {
     );
   }
 
-  async function saveTask() {
-    await setHeaders({
-      ...headers,
-      method: 'PUT',
-      body: JSON.stringify({ date, status, title, description }),
-    });
+  async function saveTask(event) {
+    event.preventDefault();
 
-    console.log('headers teste', headers)
-    await services.updateTodoById(id, headers);
+    const body = { date, status, title, description };
+
+    await services.updateTodoById(id, body, headers);
     setEditMode(false);
   }
 
   function taskEditor() {
     return (
-      <forms>
+      <form>
         <input
           type='date'
           value={date}
@@ -98,9 +95,9 @@ function TodoCard({ todoList }) {
         </label>
 
         <div>
-          <button onClick={() => saveTask(true)}>Save</button>
+          <button type='submit' onClick={(e) => saveTask(e)}>Salvar</button>
         </div>
-      </forms>
+      </form>
     );
   }
 
