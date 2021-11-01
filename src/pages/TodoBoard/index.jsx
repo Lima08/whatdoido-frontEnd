@@ -16,7 +16,7 @@ function TodoBoard() {
       return;
     }
 
-    setHeaders({ headers: { authorization: result.data.headers } });
+    setHeaders({ headers: { authorization: result.data.token } });
   }
 
   return (

@@ -1,13 +1,13 @@
 import axios from 'axios';
 
 async function authentication(body) {
-  const result = await axios
+  const token = await axios
     .post('http://localhost:3000/login', body)
     .then((response) => response)
     .catch((error) => {
       return { error };
     });
-  return result;
+  return token;
 }
 
 async function getAllTodo(headers) {
