@@ -21,7 +21,6 @@ async function getAllTodo(headers) {
 }
 
 async function excludeTodoById(id, headers) {
-  // console.log('teste headers', headers)
   const result = await axios
     .delete(`http://localhost:3000/todo/${id}`, headers)
     .then((response) => response)
