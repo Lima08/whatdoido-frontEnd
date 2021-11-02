@@ -1,14 +1,16 @@
 import React, { useState, useContext } from 'react';
-import TodoCard from '../../components/TodoCard';
+import TodoCards from '../../components/TodoCards';
 import services from '../../services';
 import TodoContext from '../../context/TodoContext';
 import TaskCreator from '../../components/taskCreator';
 
 function TodoBoard() {
-  const { setHeaders, todos, alphabeticalSort } = useContext(TodoContext);
+  const { headers, setHeaders, todos, setTodos } = useContext(TodoContext);
   const [email, setEmail] = useState('');
   const [password, setPAssword] = useState('');
   const [newTaskField, setNewTaskField] = useState(false);
+  const [order, setOrder] = useState(1);
+  const [colunm, setcolunm] = useState('title');
 
   async function submitLogin(event) {
     event.preventDefault();
@@ -50,6 +52,25 @@ function TodoBoard() {
     );
   }
 
+  function handleOrder(field) {
+    setOrder(-order);
+    setcolunm(field);
+    setTodos(
+      todos.sort((a, b) => {
+        return a[colunm] < b[colunm] ? -order : order;
+      })
+    );
+  }
+
+  async function excludeTask(id) {
+    console.log('test do evento', id);
+    const newArray = todos.filter(({ _id }) => _id !== id);
+    setTodos(newArray);
+
+    await services.excludeTodoById(id, headers);
+    return;
+  }
+
   function menu() {
     return (
       <div>
@@ -65,12 +86,15 @@ function TodoBoard() {
             <option value='Concluído'>Concluido</option>
           </select>
         </label>
-        <button type='button' onClick={() => alphabeticalSort()}>Ordem alfabética</button>
-        <button type='button'>Data</button>
-        <br />
-        <button type='button' onClick={() => setNewTaskField(!newTaskField)}>
-          Nova
+        <button type='button' onClick={(e) => handleOrder('title')}>
+          Ordem alfabética
         </button>
+        <button onClick={(e) => handleOrder('date')} type='button'>
+          Data
+        </button>
+        <br />
+        <button type='button'>Nova</button>
+        <button type='button'>Modo de edição</button>
       </div>
     );
   }
@@ -83,9 +107,7 @@ function TodoBoard() {
 
         {newTaskField && <TaskCreator setNewTaskField={setNewTaskField} />}
 
-        {todos.map((task, index) => (
-          <TodoCard key={index} task={task} />
-        ))}
+        <TodoCards todoList={todos} excludeTask={excludeTask} />
       </div>
     </>
   );

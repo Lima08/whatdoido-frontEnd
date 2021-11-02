@@ -30,25 +30,13 @@ function TodoProvider({ children }) {
     }
   }, [headers]);
 
-  function alphabeticalSort() {
-    console.log('antes do sorter', todos)
-    const orderedArray = todos.sort(function (y, x) {
-      let a = x.title.toUpperCase();
-      let b = y.title.toUpperCase();
-
-      return x === y ? 0 : a > b ? 1 : -1;
-    });
-    console.log('pos do sorter', todos)
-
-    setTodos(orderedArray);
-  }
 
   const storage = {
     todos,
     setTodos,
     headers,
     setHeaders,
-    alphabeticalSort,
+
   };
 
   return (
