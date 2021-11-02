@@ -23,7 +23,7 @@ function TodoProvider({ children }) {
       }
 
       setBaseTodos(result.data);
-      setTodos(result.data)
+      setTodos(result.data);
       return;
     }
 
@@ -32,14 +32,12 @@ function TodoProvider({ children }) {
     }
   }, [headers]);
 
-
   const storage = {
     baseTodos,
     todos,
     setTodos,
     headers,
     setHeaders,
-
   };
 
   return (

@@ -34,7 +34,7 @@ function TodoCards({ todoList, excludeTask }) {
     setEditMode(editing);
   }
 
-  //  PAssar esse forms para um componente
+  //  Passar esse forms para um componente
   if (editMode) {
     return (
       <form>
@@ -90,8 +90,15 @@ function TodoCards({ todoList, excludeTask }) {
         <p className='card-text'>{task.description}</p>
       </div>
       <div className='card-header d-flex justify-content-between'>
-        <button className='btn btn-warning' onClick={() => taskEditor(task)}>Editar</button>
-        <button  className='btn btn-danger' onClick={(e) => excludeTask(task._id)}>X</button>
+        <button className='btn btn-warning' onClick={() => taskEditor(task)}>
+          Editar
+        </button>
+        <button
+          className='btn btn-danger'
+          onClick={(e) => excludeTask(task._id)}
+        >
+          X
+        </button>
       </div>
     </div>
   ));
