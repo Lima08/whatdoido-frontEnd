@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import services from '../services';
 
 function TodoProvider({ children }) {
+  const [baseTodos, setBaseTodos] = useState([]);
   const [todos, setTodos] = useState([]);
   const [headers, setHeaders] = useState({
     headers: { 'Content-Type': 'application/json', authorization: '' },
@@ -21,7 +22,8 @@ function TodoProvider({ children }) {
         return;
       }
 
-      setTodos(result.data);
+      setBaseTodos(result.data);
+      setTodos(result.data)
       return;
     }
 
@@ -32,6 +34,7 @@ function TodoProvider({ children }) {
 
 
   const storage = {
+    baseTodos,
     todos,
     setTodos,
     headers,

@@ -5,7 +5,9 @@ import TodoContext from '../../context/TodoContext';
 import TaskCreator from '../../components/taskCreator';
 
 function TodoBoard() {
-  const { headers, setHeaders, todos, setTodos } = useContext(TodoContext);
+  const { headers, setHeaders, todos, setTodos, baseTodos } = useContext(
+    TodoContext
+  );
   const [email, setEmail] = useState('');
   const [password, setPAssword] = useState('');
   const [newTaskField, setNewTaskField] = useState(false);
@@ -52,6 +54,18 @@ function TodoBoard() {
     );
   }
 
+  function handleFilter(statusFilter) {
+    const arrayFiltered = baseTodos.filter(
+      (task) => task.status === statusFilter
+    );
+    if (!arrayFiltered.length) {
+      setTodos(baseTodos);
+      return;
+    }
+
+    setTodos(arrayFiltered);
+  }
+
   function handleOrder(field) {
     setOrder(-order);
     setcolunm(field);
@@ -77,8 +91,8 @@ function TodoBoard() {
         <label>
           status
           <select
-          // value={taskStatusFilter}
-          // onChange={({ target }) => filterByStatus(target.value, todosRender, setTodosRender)}
+            // value={}
+            onChange={({ target }) => handleFilter(target.value)}
           >
             <option value=''>Todas</option>
             <option value='Pendente'>Pendente</option>
@@ -90,10 +104,15 @@ function TodoBoard() {
           Ordem alfabética
         </button>
         <button onClick={(e) => handleOrder('date')} type='button'>
+          status
+        </button>
+        <button onClick={(e) => handleOrder('date')} type='button'>
           Data
         </button>
         <br />
-        <button onClick={(e) => setNewTaskField(true)} type='button'>Nova</button>
+        <button onClick={(e) => setNewTaskField(!newTaskField)} type='button'>
+          Nova
+        </button>
       </div>
     );
   }
