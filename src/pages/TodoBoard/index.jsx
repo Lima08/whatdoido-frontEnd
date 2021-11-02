@@ -71,8 +71,6 @@ function TodoBoard() {
     return;
   }
 
-  
-
   function menu() {
     return (
       <div>
@@ -95,7 +93,7 @@ function TodoBoard() {
           Data
         </button>
         <br />
-        <button type='button'>Nova</button>
+        <button onClick={(e) => setNewTaskField(true)} type='button'>Nova</button>
       </div>
     );
   }

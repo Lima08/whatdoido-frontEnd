@@ -9,54 +9,33 @@ function TodoCards({ todoList, excludeTask }) {
   const [status, setStatus] = useState('');
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
-  const [task, setTask] = useState({});
+  const [taskInEditing, setTaskInEditing] = useState({});
   const [editMode, setEditMode] = useState(false);
-
-  // function toDoMaker() {
-  //   return (
-  //     {todoList.map((date, status, title, description) => (
-  //       <div>
-  //         <div>
-  //           <p>{date}</p>
-  //           <p>{status}</p>
-  //         </div>
-
-  //         <div>
-  //           <h2>{title}</h2>
-  //           <p>{description}</p>
-  //         </div>
-
-  //         <div>
-  //           <button onClick={() => setEditMode(true)}>Editar</button>
-  //           <button onClick={() => excludeTask()}>X</button>
-  //         </div>
-  //       </div>
-
-  //     ))}
-  //   );
-  // }
 
   async function saveTask(event) {
     event.preventDefault();
     const body = { date, status, title, description };
-    await services.updateTodoById(task._id, body, headers);
+    await services.updateTodoById(taskInEditing._id, body, headers);
     setEditMode(false);
-    setTodos([...todoList.filter((todo) => todo._id !== task._id), { ...body, _id: task._id }]);
+    setTodos([
+      ...todoList.filter((todo) => todo._id !== taskInEditing._id),
+      { ...body, _id: taskInEditing._id },
+    ]);
   }
 
-  function taskEditor(toEdit) {
-    setEditMode(true);
+  function taskEditor(editing) {
+    setTaskInEditing(editing);
     //  Aqui passamos as informações a task que será editada para o scopo global
-    setTask(toEdit);
     //  Setamso os valores iniciais no escopo global para ficarem visiveis para o forms.
-    setDate(task.date);
-    setStatus(task.status);
-    setTitle(task.title);
-    setDescription(task.description);
+    setDate(editing.date);
+    setStatus(editing.status);
+    setTitle(editing.title);
+    setDescription(editing.description);
+    setEditMode(editing);
   }
 
   //  PAssar esse forms para um componente
-  if (editMode)
+  if (editMode) {
     return (
       <form>
         <input
@@ -98,7 +77,8 @@ function TodoCards({ todoList, excludeTask }) {
         </div>
       </form>
     );
-
+  }
+  
   return todoList.map((task, index) => (
     <div key={index}>
       <div>
