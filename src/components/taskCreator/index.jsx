@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import services from '../../services';
 import TodoContext from '../../context/TodoContext';
 
-function TaskCreator({ setNewTaskField }) {
+function TaskCreator({ setMenuField, setNewTaskField }) {
   const { headers, todos, setTodos } = useContext(TodoContext);
   const [date, setDate] = useState('');
   const [status, setStatus] = useState('Pendente');
@@ -16,7 +16,7 @@ function TaskCreator({ setNewTaskField }) {
     const response = await services.addTodo(body, headers);
     const { todoId } = response;
 
-    const newTodoList = [...todos,{...body, todoId}];
+    const newTodoList = [...todos, { ...body, todoId }];
     setTodos(newTodoList);
 
     setNewTaskField(false);
@@ -24,24 +24,38 @@ function TaskCreator({ setNewTaskField }) {
 
   function taskEditor() {
     return (
-      <form>
+      <form className=' d-flex justify-content-center'>
         <input
           type='date'
           value={date}
           onChange={({ target }) => setDate(target.value)}
+          className='btn btn-light menu'
         />
 
-        <label>
-          status:
-          <select
-            value={status}
-            onChange={({ target }) => setStatus(target.value)}
+        <select
+          value={status}
+          onChange={({ target }) => setStatus(target.value)}
+          className=' dropdown menu'
+        >
+          <option
+            className='btn btn-secondary dropdown-toggle'
+            value='Pendente'
           >
-            <option value='Pendente'>Pendente</option>
-            <option value='Em andamento'>Em andamento</option>
-            <option value='Concluído'>Concluido</option>
-          </select>
-        </label>
+            Pendente
+          </option>
+          <option
+            className='btn btn-secondary dropdown-toggle'
+            value='Em andamento'
+          >
+            Em andamento
+          </option>
+          <option
+            className='btn btn-secondary dropdown-toggle'
+            value='Concluído'
+          >
+            Concluido
+          </option>
+        </select>
 
         <label>
           Titulo:
@@ -49,6 +63,7 @@ function TaskCreator({ setNewTaskField }) {
             type='text'
             value={title}
             onChange={({ target }) => setTitle(target.value)}
+            className='btn btn-light menu'
           />
         </label>
 
@@ -58,12 +73,30 @@ function TaskCreator({ setNewTaskField }) {
             type='text'
             value={description}
             onChange={({ target }) => setDescription(target.value)}
+            className='btn btn-light menu'
           />
         </label>
 
         <div>
-          <button type='submit' onClick={(e) => saveTask(e)}>
+          <button
+            className='btn btn-success menu'
+            type='submit'
+            onClick={(e) => {
+              setMenuField(true);
+              saveTask(e);
+            }}
+          >
             Salvar
+          </button>
+
+          <button
+            className='btn btn-warning menu'
+            type='submit'
+            onClick={(e) => {
+              setMenuField(true);
+            }}
+          >
+            cancelar
           </button>
         </div>
       </form>

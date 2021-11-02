@@ -15,6 +15,7 @@ function TodoBoard() {
   const [order, setOrder] = useState(1);
   const [colunm, setcolunm] = useState('title');
   const [statusFilter, setStatusFilter] = useState('Todas');
+  const [menuField, setMenuField] = useState(true);
 
   async function submitLogin(event) {
     event.preventDefault();
@@ -70,7 +71,7 @@ function TodoBoard() {
   }
 
   function handleFilter(value) {
-    setOrder(value);
+    setStatusFilter(value);
     const arrayFiltered = baseTodos.filter(
       (task) => task.status === statusFilter
     );
@@ -152,7 +153,10 @@ function TodoBoard() {
 
         <button
           className='btn btn-light menu'
-          onClick={(e) => setNewTaskField(!newTaskField)}
+          onClick={(e) => {
+            setMenuField(!menuField);
+            setNewTaskField(!newTaskField);
+          }}
           type='button'
         >
           Nova
@@ -164,8 +168,8 @@ function TodoBoard() {
   return (
     <div>
       {formLogin()}
-      {menu()}
-      {newTaskField && <TaskCreator setNewTaskField={setNewTaskField} />}
+      {menuField && menu()}
+      {newTaskField && <TaskCreator setMenuField={setMenuField} setNewTaskField={setNewTaskField} />}
 
       <div className='d-flex flex-wrap justify-content-around'>
         <TodoCards todoList={todos} excludeTask={excludeTask} />
