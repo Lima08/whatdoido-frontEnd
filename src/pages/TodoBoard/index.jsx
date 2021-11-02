@@ -14,6 +14,7 @@ function TodoBoard() {
   const [newTaskField, setNewTaskField] = useState(false);
   const [order, setOrder] = useState(1);
   const [colunm, setcolunm] = useState('title');
+  const [statusFilter, setStatusFilter] = useState('Todas');
 
   async function submitLogin(event) {
     event.preventDefault();
@@ -35,31 +36,46 @@ function TodoBoard() {
   function formLogin() {
     return (
       <form action=''>
-        <input
-          type='email'
-          placeholder='email'
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <input
-          type='password'
-          placeholder='senha'
-          value={password}
-          onChange={(e) => setPAssword(e.target.value)}
-        />
+        <label>
+          E-mail
+          <input
+            type='email'
+            placeholder='email'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className='form-control'
+          />
+        </label>
 
-        <button type='submit' onClick={(e) => submitLogin(e)}>
+        <label>
+          Senha:
+          <input
+            type='password'
+            placeholder='senha'
+            value={password}
+            onChange={(e) => setPAssword(e.target.value)}
+            className='form-control'
+          />
+        </label>
+
+        <button
+          className='btn btn-success'
+          type='submit'
+          onClick={(e) => submitLogin(e)}
+        >
           Logar
         </button>
       </form>
     );
   }
 
-  function handleFilter(statusFilter) {
+  function handleFilter(value) {
+    setOrder(value);
     const arrayFiltered = baseTodos.filter(
       (task) => task.status === statusFilter
     );
     if (!arrayFiltered.length) {
+      alert(`Não existe tarefas ${value}`);
       setTodos(baseTodos);
       return;
     }
@@ -87,48 +103,58 @@ function TodoBoard() {
 
   function menu() {
     return (
-      <div className='cardd'>
-        <label>
-          Status:
-          <select
-            className='dropdown'
-            onChange={({ target }) => handleFilter(target.value)}
+      <div className=' d-flex justify-content-center'>
+        <select
+          className=' dropdown'
+          onChange={({ target }) => {
+            setOrder(target.value);
+            handleFilter(target.value);
+          }}
+        >
+          <option className='btn btn-secondary dropdown-toggle' value='Todas'>
+            Todas
+          </option>
+          <option
+            className='btn btn-secondary dropdown-toggle'
+            value='Pendente'
           >
-            <option className='btn btn-secondary dropdown-toggle' value=''>
-              Todas
-            </option>
-            <option
-              className='btn btn-secondary dropdown-toggle'
-              value='Pendente'
-            >
-              Pendente
-            </option>
-            <option
-              className='btn btn-secondary dropdown-toggle'
-              value='Em andamento'
-            >
-              Em andamento
-            </option>
-            <option
-              className='btn btn-secondary dropdown-toggle'
-              value='Concluído'
-            >
-              Concluido
-            </option>
-          </select>
-        </label>
+            Pendente
+          </option>
+          <option
+            className='btn btn-secondary dropdown-toggle'
+            value='Em andamento'
+          >
+            Em andamento
+          </option>
+          <option
+            className='btn btn-secondary dropdown-toggle'
+            value='Concluído'
+          >
+            Concluido
+          </option>
+        </select>
 
-        <button type='button' onClick={(e) => handleOrder('title')}>
+        <button
+          className='btn btn-light menu'
+          type='button'
+          onClick={(e) => handleOrder('title')}
+        >
           Ordem alfabética
         </button>
-        <button onClick={(e) => handleOrder('date')} type='button'>
-          status
-        </button>
-        <button onClick={(e) => handleOrder('date')} type='button'>
+
+        <button
+          className='btn btn-light menu'
+          onClick={(e) => handleOrder('date')}
+          type='button'
+        >
           Data
         </button>
-        <br />
-        <button onClick={(e) => setNewTaskField(!newTaskField)} type='button'>
+
+        <button
+          className='btn btn-light menu'
+          onClick={(e) => setNewTaskField(!newTaskField)}
+          type='button'
+        >
           Nova
         </button>
       </div>
