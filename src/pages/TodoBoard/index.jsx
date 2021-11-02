@@ -1,8 +1,9 @@
 import React, { useState, useContext } from 'react';
-import TodoCards from '../../components/TodoCards';
+import TodoCards from '../../components/TodoCard';
 import services from '../../services';
 import TodoContext from '../../context/TodoContext';
 import TaskCreator from '../../components/taskCreator';
+import '../../styles/todoBoard.css';
 
 function TodoBoard() {
   const { headers, setHeaders, todos, setTodos, baseTodos } = useContext(
@@ -77,7 +78,6 @@ function TodoBoard() {
   }
 
   async function excludeTask(id) {
-    console.log('test do evento', id);
     const newArray = todos.filter(({ _id }) => _id !== id);
     setTodos(newArray);
 
@@ -87,19 +87,37 @@ function TodoBoard() {
 
   function menu() {
     return (
-      <div>
+      <div className='cardd'>
         <label>
-          status
+          Status:
           <select
-            // value={}
+            className='dropdown'
             onChange={({ target }) => handleFilter(target.value)}
           >
-            <option value=''>Todas</option>
-            <option value='Pendente'>Pendente</option>
-            <option value='Em andamento'>Em andamento</option>
-            <option value='Concluído'>Concluido</option>
+            <option className='btn btn-secondary dropdown-toggle' value=''>
+              Todas
+            </option>
+            <option
+              className='btn btn-secondary dropdown-toggle'
+              value='Pendente'
+            >
+              Pendente
+            </option>
+            <option
+              className='btn btn-secondary dropdown-toggle'
+              value='Em andamento'
+            >
+              Em andamento
+            </option>
+            <option
+              className='btn btn-secondary dropdown-toggle'
+              value='Concluído'
+            >
+              Concluido
+            </option>
           </select>
         </label>
+
         <button type='button' onClick={(e) => handleOrder('title')}>
           Ordem alfabética
         </button>
@@ -118,16 +136,15 @@ function TodoBoard() {
   }
 
   return (
-    <>
-      <div>
-        {formLogin()}
-        {menu()}
+    <div>
+      {formLogin()}
+      {menu()}
+      {newTaskField && <TaskCreator setNewTaskField={setNewTaskField} />}
 
-        {newTaskField && <TaskCreator setNewTaskField={setNewTaskField} />}
-
+      <div className='d-flex flex-wrap justify-content-around'>
         <TodoCards todoList={todos} excludeTask={excludeTask} />
       </div>
-    </>
+    </div>
   );
 }
 

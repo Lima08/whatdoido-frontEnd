@@ -78,22 +78,20 @@ function TodoCards({ todoList, excludeTask }) {
       </form>
     );
   }
-  
+
   return todoList.map((task, index) => (
-    <div key={index}>
-      <div>
-        <p>{task.date}</p>
-        <p>{task.status}</p>
+    <div key={index} className='card '>
+      <div className='card-header d-flex justify-content-between'>
+        <span>{task.status}</span>
+        <span>{task.date}</span>
       </div>
-
-      <div>
-        <h2>{task.title}</h2>
-        <p>{task.description}</p>
+      <div className='card-body'>
+        <h2 className='card-title'>{task.title}</h2>
+        <p className='card-text'>{task.description}</p>
       </div>
-
-      <div>
-        <button onClick={(e) => excludeTask(task._id)}>X</button>
-        <button onClick={() => taskEditor(task)}>Editar</button>
+      <div className='card-header d-flex justify-content-between'>
+        <button className='btn btn-warning' onClick={() => taskEditor(task)}>Editar</button>
+        <button  className='btn btn-danger' onClick={(e) => excludeTask(task._id)}>X</button>
       </div>
     </div>
   ));
