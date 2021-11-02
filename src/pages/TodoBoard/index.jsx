@@ -3,7 +3,6 @@ import TodoCards from '../../components/TodoCard';
 import services from '../../services';
 import TodoContext from '../../context/TodoContext';
 import TaskCreator from '../../components/taskCreator';
-import '../../styles/todoBoard.css';
 
 function TodoBoard() {
   const { headers, setHeaders, todos, setTodos, baseTodos } = useContext(
@@ -15,20 +14,21 @@ function TodoBoard() {
   const [order, setOrder] = useState(1);
   const [colunm, setcolunm] = useState('title');
   const [statusFilter, setStatusFilter] = useState('Todas');
-  const [menuField, setMenuField] = useState(true);
+  const [menuField, setMenuField] = useState(false);
   const [loginField, setLoginField] = useState(true);
 
   async function submitLogin(event) {
     event.preventDefault();
     const result = await services.authentication({ email, password });
-    console.log(result)
+    console.log(result);
 
     if (result.error) {
       alert(`${result.error.response.data.message}`);
       return;
     }
 
-    setLoginField(false)
+    setLoginField(false);
+    setMenuField(true);
     setHeaders({
       headers: {
         Accept: 'application/json',
@@ -48,7 +48,7 @@ function TodoBoard() {
             placeholder='email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className='form-control'
+            className='form-control menu'
           />
         </label>
 
@@ -59,12 +59,12 @@ function TodoBoard() {
             placeholder='senha'
             value={password}
             onChange={(e) => setPAssword(e.target.value)}
-            className='form-control'
+            className='form-control menu'
           />
         </label>
 
         <button
-          className='btn btn-success'
+          className='btn btn-success menu'
           type='submit'
           onClick={(e) => submitLogin(e)}
         >
@@ -173,7 +173,12 @@ function TodoBoard() {
     <div>
       {loginField && formLogin()}
       {menuField && menu()}
-      {newTaskField && <TaskCreator setMenuField={setMenuField} setNewTaskField={setNewTaskField} />}
+      {newTaskField && (
+        <TaskCreator
+          setMenuField={setMenuField}
+          setNewTaskField={setNewTaskField}
+        />
+      )}
 
       <div className='d-flex flex-wrap justify-content-around'>
         <TodoCards todoList={todos} excludeTask={excludeTask} />
