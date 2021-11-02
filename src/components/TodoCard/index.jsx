@@ -37,29 +37,44 @@ function TodoCards({ todoList, excludeTask }) {
   //  Passar esse forms para um componente
   if (editMode) {
     return (
-      <form>
+      <form className=' d-flex justify-content-between flex-wrap'>
         <input
           type='date'
           value={date}
           onChange={({ target }) => setDate(target.value)}
+          className='btn btn-light menu'
         />
-        <label>
-          status:
-          <select
-            value={status}
-            onChange={({ target }) => setStatus(target.value)}
+        <select
+          value={status}
+          onChange={({ target }) => setStatus(target.value)}
+          className=' dropdown menu'
+        >
+          <option
+            className='btn btn-secondary dropdown-toggle'
+            value='Pendente'
           >
-            <option value='Pendente'>Pendente</option>
-            <option value='Em andamento'>Em andamento</option>
-            <option value='Concluído'>Concluido</option>
-          </select>
-        </label>
+            Pendente
+          </option>
+          <option
+            className='btn btn-secondary dropdown-toggle'
+            value='Em andamento'
+          >
+            Em andamento
+          </option>
+          <option
+            className='btn btn-secondary dropdown-toggle'
+            value='Concluído'
+          >
+            Concluido
+          </option>
+        </select>
         <label>
           Titulo:
           <input
             type='text'
             value={title}
             onChange={({ target }) => setTitle(target.value)}
+            className='btn btn-light menu'
           />
         </label>
         <label>
@@ -68,10 +83,15 @@ function TodoCards({ todoList, excludeTask }) {
             type='text'
             value={description}
             onChange={({ target }) => setDescription(target.value)}
+            className='btn btn-light menu'
           />
         </label>
         <div>
-          <button type='submit' onClick={(e) => saveTask(e)}>
+          <button
+            className='btn btn-success'
+            type='submit'
+            onClick={(e) => saveTask(e)}
+          >
             Salvar
           </button>
         </div>

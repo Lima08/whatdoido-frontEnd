@@ -40,7 +40,7 @@ function TodoBoard() {
 
   function formLogin() {
     return (
-      <form action=''>
+      <form >
         <label>
           E-mail
           <input
