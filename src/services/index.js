@@ -8,6 +8,13 @@ async function authentication(body) {
   return token;
 }
 
+async function addTodo(body, headers) {
+  const token = await axios.post(`${URL}todo`, body, headers).catch((error) => {
+    return { error };
+  });
+  return token;
+}
+
 async function getAllTodo(headers) {
   const result = await axios.get(`${URL}todos`, headers).catch((error) => {
     return { error };
@@ -35,6 +42,7 @@ async function updateTodoById(id, body, headers) {
 
 const services = {
   authentication,
+  addTodo,
   getAllTodo,
   excludeTodoById,
   updateTodoById,

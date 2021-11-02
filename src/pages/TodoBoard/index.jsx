@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import TodoCard from '../../components/TodoCard';
 import services from '../../services';
 import TodoContext from '../../context/TodoContext';
+import TaskCreator from '../../components/taskCreator';
 
 function TodoBoard() {
   const { setHeaders, todos } = useContext(TodoContext);
@@ -63,8 +64,9 @@ function TodoBoard() {
             <option value='Concluído'>Concluido</option>
           </select>
         </label>
-        <button type='button'>Nova</button>
         <button type='button'>Ordem alfabética</button>
+        <br />
+        <button type='button'>Nova</button>
       </div>
     );
   }
@@ -74,6 +76,7 @@ function TodoBoard() {
       <div>
         {formLogin()}
         {menu()}
+        <TaskCreator />
         {todos.map((todo, index) => (
           <TodoCard key={index} todoList={todo} />
         ))}
