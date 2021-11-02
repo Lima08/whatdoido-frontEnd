@@ -2,18 +2,25 @@ import React, { useContext, useState } from 'react';
 import services from '../../services';
 import TodoContext from '../../context/TodoContext';
 
-function TaskCreator() {
-  const { headers } = useContext(TodoContext);
+function TaskCreator({ setNewTaskField }) {
+  const { headers, todos, setTodos } = useContext(TodoContext);
   const [date, setDate] = useState('');
-  const [status, setStatus] = useState('');
-  const [title, setTitle] = useState('');
+  const [status, setStatus] = useState('Pendente');
+  const [title, setTitle] = useState('Nova tarefa');
   const [description, setDescription] = useState('');
 
   async function saveTask(event) {
     event.preventDefault();
 
     const body = { date, status, title, description };
-    await services.addTodo(body, headers);
+    const response = await services.addTodo(body, headers);
+    console.log('rest de resposta deslogado', response)
+    const { todoId } = response;
+
+    const newTodoList = [...todos,{...body, todoId}];
+    setTodos(newTodoList);
+
+    setNewTaskField(false);
   }
 
   function taskEditor() {

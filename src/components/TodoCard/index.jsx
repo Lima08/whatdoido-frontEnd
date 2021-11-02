@@ -3,26 +3,22 @@ import services from '../../services';
 import PropTypes from 'prop-types';
 import TodoContext from '../../context/TodoContext';
 
-function TodoCard({ todoList }) {
+function TodoCard({ task }) {
   const { headers, todos, setTodos } = useContext(TodoContext);
-  const { _id: id } = todoList;
+  const { _id: id } = task;
 
   const [editMode, setEditMode] = useState(false);
-  const [date, setDate] = useState(todoList.date);
-  const [status, setStatus] = useState(todoList.status);
-  const [title, setTitle] = useState(todoList.title);
-  const [description, setDescription] = useState(todoList.description);
+  const [date, setDate] = useState(task.date);
+  const [status, setStatus] = useState(task.status);
+  const [title, setTitle] = useState(task.title);
+  const [description, setDescription] = useState(task.description);
 
   async function excludeTask() {
-    const result = await services.excludeTodoById(id, headers);
+    const newArray = todos.filter(({ _id }) => _id !== id);
+    setTodos(newArray);
 
-    if (result.error) {
-      alert(`${result.error.response.data.message}`);
-      return;
-    }
-
-    const newList = todos.filter((task) => task._id !== id);
-    setTodos(newList);
+    await services.excludeTodoById(id, headers);
+    return;
   }
 
   function toDoMaker() {
@@ -95,7 +91,9 @@ function TodoCard({ todoList }) {
         </label>
 
         <div>
-          <button type='submit' onClick={(e) => saveTask(e)}>Salvar</button>
+          <button type='submit' onClick={(e) => saveTask(e)}>
+            Salvar
+          </button>
         </div>
       </form>
     );

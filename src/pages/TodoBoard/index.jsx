@@ -8,6 +8,7 @@ function TodoBoard() {
   const { setHeaders, todos } = useContext(TodoContext);
   const [email, setEmail] = useState('');
   const [password, setPAssword] = useState('');
+  const [newTaskField, setNewTaskField] = useState(false);
 
   async function submitLogin(event) {
     event.preventDefault();
@@ -65,8 +66,11 @@ function TodoBoard() {
           </select>
         </label>
         <button type='button'>Ordem alfabética</button>
+        <button type='button'>Data</button>
         <br />
-        <button type='button'>Nova</button>
+        <button type='button' onClick={() => setNewTaskField(!newTaskField)}>
+          Nova
+        </button>
       </div>
     );
   }
@@ -76,9 +80,11 @@ function TodoBoard() {
       <div>
         {formLogin()}
         {menu()}
-        <TaskCreator />
-        {todos.map((todo, index) => (
-          <TodoCard key={index} todoList={todo} />
+
+        {newTaskField && <TaskCreator setNewTaskField={setNewTaskField} />}
+
+        {todos.map((task, index) => (
+          <TodoCard key={index} task={task} />
         ))}
       </div>
     </>
