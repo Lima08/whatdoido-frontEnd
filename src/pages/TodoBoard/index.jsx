@@ -16,15 +16,19 @@ function TodoBoard() {
   const [colunm, setcolunm] = useState('title');
   const [statusFilter, setStatusFilter] = useState('Todas');
   const [menuField, setMenuField] = useState(true);
+  const [loginField, setLoginField] = useState(true);
 
   async function submitLogin(event) {
     event.preventDefault();
     const result = await services.authentication({ email, password });
+    console.log(result)
 
     if (result.error) {
       alert(`${result.error.response.data.message}`);
       return;
     }
+
+    setLoginField(false)
     setHeaders({
       headers: {
         Accept: 'application/json',
@@ -167,7 +171,7 @@ function TodoBoard() {
 
   return (
     <div>
-      {formLogin()}
+      {loginField && formLogin()}
       {menuField && menu()}
       {newTaskField && <TaskCreator setMenuField={setMenuField} setNewTaskField={setNewTaskField} />}
 

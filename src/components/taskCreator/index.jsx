@@ -24,7 +24,7 @@ function TaskCreator({ setMenuField, setNewTaskField }) {
 
   function taskEditor() {
     return (
-      <form className=' d-flex justify-content-center'>
+      <form className=' d-flex justify-content-between flex-wrap'>
         <input
           type='date'
           value={date}
