@@ -71,6 +71,8 @@ function TodoBoard() {
     return;
   }
 
+  
+
   function menu() {
     return (
       <div>
@@ -94,7 +96,6 @@ function TodoBoard() {
         </button>
         <br />
         <button type='button'>Nova</button>
-        <button type='button'>Modo de edição</button>
       </div>
     );
   }
