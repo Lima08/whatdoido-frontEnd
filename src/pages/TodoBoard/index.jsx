@@ -5,7 +5,7 @@ import TodoContext from '../../context/TodoContext';
 import TaskCreator from '../../components/taskCreator';
 
 function TodoBoard() {
-  const { setHeaders, todos } = useContext(TodoContext);
+  const { setHeaders, todos, alphabeticalSort } = useContext(TodoContext);
   const [email, setEmail] = useState('');
   const [password, setPAssword] = useState('');
   const [newTaskField, setNewTaskField] = useState(false);
@@ -65,7 +65,7 @@ function TodoBoard() {
             <option value='Concluído'>Concluido</option>
           </select>
         </label>
-        <button type='button'>Ordem alfabética</button>
+        <button type='button' onClick={() => alphabeticalSort()}>Ordem alfabética</button>
         <button type='button'>Data</button>
         <br />
         <button type='button' onClick={() => setNewTaskField(!newTaskField)}>

@@ -9,7 +9,9 @@ function TodoProvider({ children }) {
   });
 
   useEffect(() => {
-    const { headers: { authorization } } = headers;
+    const {
+      headers: { authorization },
+    } = headers;
 
     async function getTodos() {
       const result = await services.getAllTodo(headers);
@@ -18,21 +20,35 @@ function TodoProvider({ children }) {
         alert(`${result.error.response.data.message}`);
         return;
       }
-      
+
       setTodos(result.data);
       return;
     }
-      
+
     if (authorization !== '') {
       getTodos();
     }
   }, [headers]);
+
+  function alphabeticalSort() {
+    console.log('antes do sorter', todos)
+    const orderedArray = todos.sort(function (y, x) {
+      let a = x.title.toUpperCase();
+      let b = y.title.toUpperCase();
+
+      return x === y ? 0 : a > b ? 1 : -1;
+    });
+    console.log('pos do sorter', todos)
+
+    setTodos(orderedArray);
+  }
 
   const storage = {
     todos,
     setTodos,
     headers,
     setHeaders,
+    alphabeticalSort,
   };
 
   return (

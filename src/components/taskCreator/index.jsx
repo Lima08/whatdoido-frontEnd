@@ -14,7 +14,6 @@ function TaskCreator({ setNewTaskField }) {
 
     const body = { date, status, title, description };
     const response = await services.addTodo(body, headers);
-    console.log('rest de resposta deslogado', response)
     const { todoId } = response;
 
     const newTodoList = [...todos,{...body, todoId}];
