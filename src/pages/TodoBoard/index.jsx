@@ -22,7 +22,9 @@ function TodoBoard() {
     event.preventDefault();
     const result = await services.newUser(userName, email, password);
     console.log(result);
-
+    setUserName('');
+    setEmail('')
+    setPAssword('');
     if (result.error) {
       alert(`${result.error.response.data.message}`);
       return;
@@ -33,6 +35,13 @@ function TodoBoard() {
 
   async function submitLogin(event) {
     event.preventDefault();
+
+    if (!userName || userName.length < 3) {
+      alert(`Nome é obrigatorio`);
+      return;
+
+    }
+
     const result = await services.authentication({ email, password });
 
     if (result.error) {
@@ -149,7 +158,7 @@ function TodoBoard() {
 
   function menu() {
     return (
-      <div className=' d-flex justify-content-center'>
+      <div className=''>
         <select
           className=' dropdown'
           onChange={({ target }) => {
@@ -226,7 +235,7 @@ function TodoBoard() {
         />
       )}
 
-      <div className='d-flex flex-wrap justify-content-around'>
+      <div className=''>
         <TodoCards todoList={todos} excludeTask={excludeTask} />
       </div>
     </div>
