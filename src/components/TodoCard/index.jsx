@@ -100,7 +100,7 @@ function TodoCards({ todoList, excludeTask }) {
   }
 
   return todoList.map((task, index) => (
-    <div key={index} className='card '>
+    <div key={index} className='card test'>
       <div className='card-header d-flex justify-content-between'>
         <span>{task.status}</span>
         <span>{task.date}</span>
