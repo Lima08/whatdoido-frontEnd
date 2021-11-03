@@ -11,12 +11,12 @@ function TodoBoard() {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPAssword] = useState('');
-  const [newTaskField, setNewTaskField] = useState(false);
   const [order, setOrder] = useState(1);
   const [colunm, setcolunm] = useState('title');
   const [statusFilter, setStatusFilter] = useState('Todas');
-  const [menuField, setMenuField] = useState(false);
+  const [menuField, setMenuField] = useState(true);
   const [loginField, setLoginField] = useState(true);
+  const [newTaskField, setNewTaskField] = useState(false);
 
   async function newUser(event) {
     event.preventDefault();
@@ -48,9 +48,10 @@ function TodoBoard() {
       alert(`${result.error.response.data.message}`);
       return;
     }
-
-    setLoginField(false);
-    setMenuField(true);
+    
+//  Ativa / desativas campos
+    // setLoginField(false);
+    // setMenuField(true);
     setHeaders({
       headers: {
         Accept: 'application/json',
@@ -235,9 +236,9 @@ function TodoBoard() {
         />
       )}
 
-      <div className=''>
+      <ul className=''>
         <TodoCards todoList={todos} excludeTask={excludeTask} />
-      </div>
+      </ul>
     </div>
   );
 }

@@ -37,7 +37,7 @@ function TodoCards({ todoList, excludeTask }) {
   //  Passar esse forms para um componente
   if (editMode) {
     return (
-      <form className=' d-flex justify-content-between flex-wrap'>
+      <li className=' d-flex justify-content-between'>
         <input
           type='date'
           value={date}
@@ -95,32 +95,26 @@ function TodoCards({ todoList, excludeTask }) {
             Salvar
           </button>
         </div>
-      </form>
+      </li>
     );
   }
 
   return todoList.map((task, index) => (
-    <div key={index} className=''>
-      <div className=''>
-        <span>{task.status}</span>
-        <span>{task.date}</span>
-      </div>
-      <div className=''>
-        <h2 className=''>{task.title}</h2>
-        <p className=''>{task.description}</p>
-      </div>
-      <div className=''>
-        <button className='' onClick={() => taskEditor(task)}>
-          Editar
-        </button>
-        <button
-          className=''
-          onClick={(e) => excludeTask(task._id)}
-        >
-          X
-        </button>
-      </div>
-    </div>
+    <li
+      className=' d-flex justify-content-center'
+      nClick={() => taskEditor(task)}
+    >
+      <span>{task.status}</span>
+      <span>{task.date}</span>
+
+      <h2 className=''>{task.title}</h2>
+
+   
+
+      <button className='' onClick={(e) => excludeTask(task._id)}>
+        X
+      </button>
+    </li>
   ));
 }
 
