@@ -24,7 +24,7 @@ function TaskCreator({ setMenuField, setNewTaskField }) {
 
   function taskEditor() {
     return (
-      <form className=' d-flex justify-content-between flex-wrap'>
+      <form className='d-flex justify-content-between'>
         <input
           type='date'
           value={date}
@@ -80,7 +80,7 @@ function TaskCreator({ setMenuField, setNewTaskField }) {
         <div>
           <button
             className='btn btn-success menu'
-            type='submit'
+            type='button'
             onClick={(e) => {
               setMenuField(true);
               saveTask(e);
@@ -91,7 +91,7 @@ function TaskCreator({ setMenuField, setNewTaskField }) {
 
           <button
             className='btn btn-warning menu'
-            type='submit'
+            type='button'
             onClick={(e) => {
               setMenuField(true);
             }}
