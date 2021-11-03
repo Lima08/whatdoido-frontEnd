@@ -19,6 +19,7 @@ function TaskCreator({ setMenuField, setNewTaskField }) {
     setTodos(newTodoList);
 
     setNewTaskField(false);
+    setMenuField(true);
   }
 
   function taskEditor() {
@@ -72,7 +73,7 @@ function TaskCreator({ setMenuField, setNewTaskField }) {
             className='btn btn-success option-task'
             type='button'
             onClick={(e) => {
-              setMenuField(true);
+              setMenuField(false);
               saveTask(e);
             }}
           >
@@ -84,6 +85,7 @@ function TaskCreator({ setMenuField, setNewTaskField }) {
             type='button'
             onClick={(e) => {
               setMenuField(true);
+              setNewTaskField(false);
             }}
           >
             Cancelar

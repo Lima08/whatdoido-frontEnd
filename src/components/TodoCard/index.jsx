@@ -24,14 +24,13 @@ function TodoCards({ todoList, excludeTask }) {
   }
 
   function taskEditor(editing) {
-    console.log('A tarefa recebida para edição é -->', editing)
     setTaskInEditing(editing);
     //  Aqui passamos as informações a task que será editada para o scopo global
     //  Setamos os valores iniciais no escopo global para ficarem visiveis para o forms.
     setDate(editing.date);
     setStatus(editing.status);
     setTitle(editing.title);
-    setEditMode(editing);
+    setEditMode(true);
   }
 
   //  Passar esse forms para um componente

@@ -10,9 +10,9 @@ function TodoBoard() {
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPAssword] = useState('');
-  const [order, setOrder] = useState(1);
+  const [order, setOrder] = useState(true);
   const [colunm, setcolunm] = useState('title');
-  const [statusFilter, setStatusFilter] = useState('Todas');
+  // const [statusFilter, setStatusFilter] = useState('Todas');
   const [menuField, setMenuField] = useState(true);
   const [loginField, setLoginField] = useState(true);
   const [newTaskField, setNewTaskField] = useState(false);
@@ -124,10 +124,12 @@ function TodoBoard() {
   }
 
   function handleFilter(value) {
-    setStatusFilter(value);
-    const arrayFiltered = baseTodos.filter(
-      (task) => task.status === statusFilter
-    );
+    // setStatusFilter(value);
+    if (value === 'Todas') {
+      setTodos(baseTodos);
+      return;
+    }
+    const arrayFiltered = baseTodos.filter((task) => task.status === value);
     if (!arrayFiltered.length) {
       alert(`Não existe tarefas ${value}`);
       setTodos(baseTodos);
@@ -138,15 +140,17 @@ function TodoBoard() {
   }
 
   function handleOrder(field) {
-    console.log('a informação recebida em handleOrder', field);
-    setOrder(-order);
+    setOrder(!order);
     setcolunm(field);
 
     const orderedArray = todos.sort((a, b) => {
-      return a[colunm] < b[colunm] ? -order : order;
+      if (order) {
+        return a[colunm] < b[colunm] ? -1 : 1;
+      }
+
+      return a[colunm] > b[colunm] ? -1 : 1;
     });
 
-    console.log('a informação recebida em orderedArray', orderedArray);
     setTodos(orderedArray);
   }
 
@@ -164,7 +168,6 @@ function TodoBoard() {
         <select
           className=' dropdown'
           onChange={({ target }) => {
-            setOrder(target.value);
             handleFilter(target.value);
           }}
         >
@@ -210,8 +213,8 @@ function TodoBoard() {
         <button
           className='btn btn-light menu'
           onClick={(e) => {
-            setMenuField(!menuField);
-            setNewTaskField(!newTaskField);
+            setMenuField(false);
+            setNewTaskField(true);
           }}
           type='button'
         >
