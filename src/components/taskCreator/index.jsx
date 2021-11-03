@@ -86,7 +86,7 @@ function TaskCreator({ setMenuField, setNewTaskField }) {
               setMenuField(true);
             }}
           >
-            cancelar
+            Cancelar
           </button>
         </div>
       </form>

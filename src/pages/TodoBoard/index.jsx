@@ -5,9 +5,8 @@ import TodoContext from '../../context/TodoContext';
 import TaskCreator from '../../components/taskCreator';
 
 function TodoBoard() {
-  const { headers, setHeaders, todos, setTodos, baseTodos } = useContext(
-    TodoContext
-  );
+  const { headers, setHeaders, todos, setTodos, baseTodos } =
+    useContext(TodoContext);
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPAssword] = useState('');
@@ -23,7 +22,7 @@ function TodoBoard() {
     const result = await services.newUser(userName, email, password);
     console.log(result);
     setUserName('');
-    setEmail('')
+    setEmail('');
     setPAssword('');
     if (result.error) {
       alert(`${result.error.response.data.message}`);
@@ -39,7 +38,6 @@ function TodoBoard() {
     if (!userName || userName.length < 3) {
       alert(`Nome é obrigatorio`);
       return;
-
     }
 
     const result = await services.authentication({ email, password });
@@ -48,8 +46,8 @@ function TodoBoard() {
       alert(`${result.error.response.data.message}`);
       return;
     }
-    
-//  Ativa / desativas campos
+
+    //  Ativa / desativas campos
     // setLoginField(false);
     // setMenuField(true);
     setHeaders({
@@ -140,13 +138,16 @@ function TodoBoard() {
   }
 
   function handleOrder(field) {
+    console.log('a informação recebida em handleOrder', field);
     setOrder(-order);
     setcolunm(field);
-    setTodos(
-      todos.sort((a, b) => {
-        return a[colunm] < b[colunm] ? -order : order;
-      })
-    );
+
+    const orderedArray = todos.sort((a, b) => {
+      return a[colunm] < b[colunm] ? -order : order;
+    });
+
+    console.log('a informação recebida em orderedArray', orderedArray);
+    setTodos(orderedArray);
   }
 
   async function excludeTask(id) {
@@ -193,14 +194,14 @@ function TodoBoard() {
         <button
           className='btn btn-light menu'
           type='button'
-          onClick={(e) => handleOrder('title')}
+          onClick={() => handleOrder('title')}
         >
           Ordem alfabética
         </button>
 
         <button
           className='btn btn-light menu'
-          onClick={(e) => handleOrder('date')}
+          onClick={() => handleOrder('date')}
           type='button'
         >
           Data

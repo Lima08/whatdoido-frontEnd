@@ -24,20 +24,20 @@ function TodoCards({ todoList, excludeTask }) {
   }
 
   function taskEditor(editing) {
+    console.log('A tarefa recebida para edição é -->', editing)
     setTaskInEditing(editing);
     //  Aqui passamos as informações a task que será editada para o scopo global
-    //  Setamso os valores iniciais no escopo global para ficarem visiveis para o forms.
+    //  Setamos os valores iniciais no escopo global para ficarem visiveis para o forms.
     setDate(editing.date);
     setStatus(editing.status);
     setTitle(editing.title);
-    setDescription(editing.description);
     setEditMode(editing);
   }
 
   //  Passar esse forms para um componente
   if (editMode) {
     return (
-      <li className=' d-flex justify-content-center task'>
+      <li className='d-flex justify-content-center task'>
         <input
           type='date'
           value={date}
@@ -102,17 +102,20 @@ function TodoCards({ todoList, excludeTask }) {
   }
 
   return todoList.map((task, index) => (
-    <li
-      className=' d-flex justify-content-center task'
-      onClick={() => taskEditor(task)}
-    >
+    <li key={index} className='d-flex justify-content-center task'>
       <span className='option-task'>{task.date}</span>
       <span className='option-task '>{task.status}</span>
-
       <h2 className='option-task'>{task.title}</h2>
 
       <button
-        className='btn btn-danger option-task option-task'
+        className='btn btn-warning option-task option-task'
+        onClick={() => taskEditor(task)}
+      >
+        Editar
+      </button>
+
+      <button
+        className='btn btn-danger option-task '
         onClick={(e) => excludeTask(task._id)}
       >
         X
