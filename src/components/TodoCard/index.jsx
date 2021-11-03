@@ -37,17 +37,18 @@ function TodoCards({ todoList, excludeTask }) {
   //  Passar esse forms para um componente
   if (editMode) {
     return (
-      <li className=' d-flex justify-content-between'>
+      <li className=' d-flex justify-content-center task'>
         <input
           type='date'
           value={date}
           onChange={({ target }) => setDate(target.value)}
-          className='btn btn-light menu'
+          className='btn btn-light option-task'
         />
+
         <select
           value={status}
           onChange={({ target }) => setStatus(target.value)}
-          className=' dropdown menu'
+          className=' dropdown option-task'
         >
           <option
             className='btn btn-secondary dropdown-toggle'
@@ -68,24 +69,17 @@ function TodoCards({ todoList, excludeTask }) {
             Concluido
           </option>
         </select>
+
         <label>
           Titulo:
           <input
             type='text'
             value={title}
             onChange={({ target }) => setTitle(target.value)}
-            className='btn btn-light menu'
+            className='btn btn-light option-task'
           />
         </label>
-        <label>
-          Descrição:
-          <input
-            type='text'
-            value={description}
-            onChange={({ target }) => setDescription(target.value)}
-            className='btn btn-light menu'
-          />
-        </label>
+
         <div>
           <button
             className='btn btn-success'
@@ -94,6 +88,14 @@ function TodoCards({ todoList, excludeTask }) {
           >
             Salvar
           </button>
+
+          <button
+            className='btn btn-warning option-task'
+            type='button'
+            onClick={() => setEditMode(false)}
+          >
+            cancelar
+          </button>
         </div>
       </li>
     );
@@ -101,17 +103,18 @@ function TodoCards({ todoList, excludeTask }) {
 
   return todoList.map((task, index) => (
     <li
-      className=' d-flex justify-content-center'
-      nClick={() => taskEditor(task)}
+      className=' d-flex justify-content-center task'
+      onClick={() => taskEditor(task)}
     >
-      <span>{task.status}</span>
-      <span>{task.date}</span>
+      <span className='option-task'>{task.date}</span>
+      <span className='option-task '>{task.status}</span>
 
-      <h2 className=''>{task.title}</h2>
+      <h2 className='option-task'>{task.title}</h2>
 
-   
-
-      <button className='' onClick={(e) => excludeTask(task._id)}>
+      <button
+        className='btn btn-danger option-task option-task'
+        onClick={(e) => excludeTask(task._id)}
+      >
         X
       </button>
     </li>

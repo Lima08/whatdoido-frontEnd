@@ -13,8 +13,13 @@ code {
     monospace;
 }
 
-.menu {
-  margin: 0 10px;
+.option-task {
+  margin: 5px 10px;
+}
+
+.task:hover {
+  background-color: rgb(243, 242, 242);
+  cursor: pointer;
 }
 
 
