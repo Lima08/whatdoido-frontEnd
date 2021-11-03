@@ -8,6 +8,7 @@ function TodoBoard() {
   const { headers, setHeaders, todos, setTodos, baseTodos } = useContext(
     TodoContext
   );
+  const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPAssword] = useState('');
   const [newTaskField, setNewTaskField] = useState(false);
@@ -17,10 +18,22 @@ function TodoBoard() {
   const [menuField, setMenuField] = useState(false);
   const [loginField, setLoginField] = useState(true);
 
+  async function newUser(event) {
+    event.preventDefault();
+    const result = await services.newUser(userName, email, password);
+    console.log(result);
+
+    if (result.error) {
+      alert(`${result.error.response.data.message}`);
+      return;
+    }
+
+    alert(`Parabéns ${userName}. Seu registro foi feito com sucesso!`);
+  }
+
   async function submitLogin(event) {
     event.preventDefault();
     const result = await services.authentication({ email, password });
-    console.log(result);
 
     if (result.error) {
       alert(`${result.error.response.data.message}`);
@@ -40,12 +53,31 @@ function TodoBoard() {
 
   function formLogin() {
     return (
-      <form >
+      <form className='card'>
+        <div className=' text-white bg-dark mb-3'>
+          <h2>Precisando de uma ajudinha para se organizar? </h2>
+          <p>
+            Agora você não precisa mais carregar sua agenda. Cadastre-se e cria
+            sua lista de tarefas e acesse de onde estiver!
+          </p>
+        </div>
+
+        <label>
+          Nome
+          <input
+            type='text'
+            placeholder='Digite seu nome'
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+            className='form-control menu'
+          />
+        </label>
+
         <label>
           E-mail
           <input
             type='email'
-            placeholder='email'
+            placeholder='digite seu E-mail'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className='form-control menu'
@@ -56,20 +88,29 @@ function TodoBoard() {
           Senha:
           <input
             type='password'
-            placeholder='senha'
+            placeholder='Digite sua senha'
             value={password}
             onChange={(e) => setPAssword(e.target.value)}
             className='form-control menu'
           />
         </label>
 
-        <button
-          className='btn btn-success menu'
-          type='submit'
-          onClick={(e) => submitLogin(e)}
-        >
-          Logar
-        </button>
+        <div>
+          <button
+            className='btn btn-primary menu'
+            type='submit'
+            onClick={(e) => submitLogin(e)}
+          >
+            Entrar
+          </button>
+          <button
+            className='btn btn-secondary menu'
+            type='submit'
+            onClick={(e) => newUser(e)}
+          >
+            Cadastre-se
+          </button>
+        </div>
       </form>
     );
   }
@@ -171,7 +212,12 @@ function TodoBoard() {
 
   return (
     <div>
-      {loginField && formLogin()}
+      {loginField && (
+        <div className='login-form '>
+          <h1 className='login-title'>What do I do?</h1>
+          {formLogin()}
+        </div>
+      )}
       {menuField && menu()}
       {newTaskField && (
         <TaskCreator

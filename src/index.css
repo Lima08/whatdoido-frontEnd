@@ -16,3 +16,15 @@ code {
 .menu {
   margin: 0 10px;
 }
+
+
+.login-form {
+  max-width: 50vw;
+  margin: 0 auto;
+}
+
+.login-title {
+  margin: 0 auto;
+  color: aliceblue;
+  text-align: center;
+}
