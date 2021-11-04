@@ -3,128 +3,18 @@ import TodoCards from '../../components/TodoCard';
 import services from '../../services';
 import TodoContext from '../../context/TodoContext';
 import TaskCreator from '../../components/taskCreator';
+import { useNavigate } from 'react-router-dom';
+import '../../styles/todoBoard.css';
 
 function TodoBoard() {
-  const { headers, setHeaders, todos, setTodos, baseTodos } =
+  const navigate = useNavigate();
+  const { headers, setHeaders, todos, setTodos, baseTodos, userName } =
     useContext(TodoContext);
-  const [userName, setUserName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPAssword] = useState('');
   const [order, setOrder] = useState(true);
   const [colunm, setcolunm] = useState('title');
-  // const [statusFilter, setStatusFilter] = useState('Todas');
-  const [menuField, setMenuField] = useState(true);
-  const [loginField, setLoginField] = useState(true);
   const [newTaskField, setNewTaskField] = useState(false);
 
-  async function newUser(event) {
-    event.preventDefault();
-    const result = await services.newUser(userName, email, password);
-    console.log(result);
-    setUserName('');
-    setEmail('');
-    setPAssword('');
-    if (result.error) {
-      alert(`${result.error.response.data.message}`);
-      return;
-    }
-
-    alert(`Parabéns ${userName}. Seu registro foi feito com sucesso!`);
-  }
-
-  async function submitLogin(event) {
-    event.preventDefault();
-
-    if (!userName || userName.length < 3) {
-      alert(`Nome é obrigatorio`);
-      return;
-    }
-
-    const result = await services.authentication({ email, password });
-
-    if (result.error) {
-      alert(`${result.error.response.data.message}`);
-      return;
-    }
-
-    //  Ativa / desativas campos
-    // setLoginField(false);
-    // setMenuField(true);
-    setHeaders({
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-        authorization: result.data.token,
-      },
-    });
-  }
-
-  function formLogin() {
-    return (
-      <form className='card'>
-        <div className=' text-white bg-dark mb-3'>
-          <h2>Precisando de uma ajudinha para se organizar? </h2>
-          <p>
-            Agora você não precisa mais carregar sua agenda. Cadastre-se e cria
-            sua lista de tarefas e acesse de onde estiver!
-          </p>
-        </div>
-
-        <label>
-          Nome
-          <input
-            type='text'
-            placeholder='Digite seu nome'
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-            className='form-control menu'
-          />
-        </label>
-
-        <label>
-          E-mail
-          <input
-            type='email'
-            placeholder='digite seu E-mail'
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className='form-control menu'
-          />
-        </label>
-
-        <label>
-          Senha:
-          <input
-            type='password'
-            placeholder='Digite sua senha'
-            value={password}
-            onChange={(e) => setPAssword(e.target.value)}
-            className='form-control menu'
-          />
-        </label>
-
-        <div>
-          <button
-            className='btn btn-primary menu'
-            type='submit'
-            onClick={(e) => submitLogin(e)}
-          >
-            Entrar
-          </button>
-          <button
-            className='btn btn-secondary menu'
-            type='submit'
-            onClick={(e) => newUser(e)}
-          >
-            Cadastre-se
-          </button>
-        </div>
-      </form>
-    );
-  }
-
   function handleFilter(value) {
-    // setStatusFilter(value);
     if (value === 'Todas') {
       setTodos(baseTodos);
       return;
@@ -164,9 +54,40 @@ function TodoBoard() {
 
   function menu() {
     return (
-      <div className=''>
+      <section className='menu'>
+        <div className='card'>
+          <h3>{`Olá, ${userName}!`}</h3>
+          <h4>{`Você tem ${todos.length} tarefas.`}</h4>
+        </div>
+
+        <button
+          className='btn btn-light menu-btn'
+          onClick={(e) => {
+            setNewTaskField(true);
+          }}
+          type='button'
+        >
+          Nova
+        </button>
+
+        <button
+          className='btn btn-light menu-btn'
+          type='button'
+          onClick={() => handleOrder('title')}
+        >
+          Ordem alfabética
+        </button>
+
+        <button
+          className='btn btn-light menu-btn'
+          onClick={() => handleOrder('date')}
+          type='button'
+        >
+          Data
+        </button>
+
         <select
-          className=' dropdown'
+          className='dropdown menu-btn'
           onChange={({ target }) => {
             handleFilter(target.value);
           }}
@@ -195,54 +116,29 @@ function TodoBoard() {
         </select>
 
         <button
-          className='btn btn-light menu'
-          type='button'
-          onClick={() => handleOrder('title')}
-        >
-          Ordem alfabética
-        </button>
-
-        <button
-          className='btn btn-light menu'
-          onClick={() => handleOrder('date')}
-          type='button'
-        >
-          Data
-        </button>
-
-        <button
-          className='btn btn-light menu'
-          onClick={(e) => {
-            setMenuField(false);
-            setNewTaskField(true);
+          className='btn btn-light menu-btn'
+          onClick={() => {
+            setHeaders('');
+            navigate('/', { replace: true });
           }}
           type='button'
         >
-          Nova
+          Sair
         </button>
-      </div>
+      </section>
     );
   }
 
   return (
-    <div>
-      {loginField && (
-        <div className='login-form '>
-          <h1 className='login-title'>What do I do?</h1>
-          {formLogin()}
-        </div>
-      )}
-      {menuField && menu()}
-      {newTaskField && (
-        <TaskCreator
-          setMenuField={setMenuField}
-          setNewTaskField={setNewTaskField}
-        />
-      )}
+    <div className='board'>
+      {menu()}
+      <section className='task-area'>
+        {newTaskField && <TaskCreator setNewTaskField={setNewTaskField} />}
 
-      <ul className=''>
-        <TodoCards todoList={todos} excludeTask={excludeTask} />
-      </ul>
+        <ul className=''>
+          <TodoCards todoList={todos} excludeTask={excludeTask} />
+        </ul>
+      </section>
     </div>
   );
 }

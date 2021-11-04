@@ -1,0 +1,29 @@
+.home {
+  background-color: #ebebeb;
+  width: 100vw;
+  height: 100vh;
+  margin: 0 auto;
+}
+
+.header {
+  background-color: #5B38A8;
+  display: flex;
+  justify-content: center;
+  height: 8vh;
+  padding: 5px;
+  align-items: center;
+}
+
+.header h1 {
+  color: white;
+  margin: 0 5vw;
+  font-weight: bolder;
+  font-size: 3vw;
+}
+
+.header-search {
+  width: 50%;
+  height: 60%;
+  margin: 0 auto;
+  
+}
