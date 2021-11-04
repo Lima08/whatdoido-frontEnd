@@ -3,6 +3,7 @@ import TodoCards from '../../components/TodoCard';
 import services from '../../services';
 import TodoContext from '../../context/TodoContext';
 import TaskCreator from '../../components/taskCreator';
+import '../../styles/todoBoard.css';
 
 function TodoBoard() {
   const { headers, setHeaders, todos, setTodos, baseTodos } =
@@ -14,7 +15,7 @@ function TodoBoard() {
   const [colunm, setcolunm] = useState('title');
   // const [statusFilter, setStatusFilter] = useState('Todas');
   const [menuField, setMenuField] = useState(true);
-  const [loginField, setLoginField] = useState(true);
+  const [loginField, setLoginField] = useState(false);
   const [newTaskField, setNewTaskField] = useState(false);
 
   async function newUser(event) {
@@ -160,11 +161,11 @@ function TodoBoard() {
 
   function menu() {
     return (
-      <section className=''>
+      <section className='menu'>
         <button
-          className='btn btn-light menu'
+          className='btn btn-light menu-btn'
           onClick={(e) => {
-            setMenuField(false);
+            // setMenuField(false);
             setNewTaskField(true);
           }}
           type='button'
@@ -172,8 +173,24 @@ function TodoBoard() {
           Nova
         </button>
 
+        <button
+          className='btn btn-light menu-btn'
+          type='button'
+          onClick={() => handleOrder('title')}
+        >
+          Ordem alfabética
+        </button>
+
+        <button
+          className='btn btn-light menu-btn'
+          onClick={() => handleOrder('date')}
+          type='button'
+        >
+          Data
+        </button>
+
         <select
-          className=' dropdown'
+          className='dropdown menu-btn'
           onChange={({ target }) => {
             handleFilter(target.value);
           }}
@@ -201,23 +218,7 @@ function TodoBoard() {
           </option>
         </select>
 
-        <button
-          className='btn btn-light menu'
-          type='button'
-          onClick={() => handleOrder('title')}
-        >
-          Ordem alfabética
-        </button>
-
-        <button
-          className='btn btn-light menu'
-          onClick={() => handleOrder('date')}
-          type='button'
-        >
-          Data
-        </button>
-
-        <button className='btn btn-light menu' onClick={() => {}} type='button'>
+        <button className='btn btn-light menu-btn' onClick={() => {}} type='button'>
           IMPLEMENTAR LOGOUT
         </button>
       </section>
@@ -225,7 +226,7 @@ function TodoBoard() {
   }
 
   return (
-    <div>
+    <div className='board'>
       {loginField && (
         <div className='login-form '>
           <h1 className='login-title'>What do I do?</h1>

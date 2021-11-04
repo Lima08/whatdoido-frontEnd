@@ -8,13 +8,12 @@ function TodoCards({ todoList, excludeTask }) {
   const [date, setDate] = useState('');
   const [status, setStatus] = useState('');
   const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
   const [taskInEditing, setTaskInEditing] = useState({});
   const [editMode, setEditMode] = useState(false);
 
   async function saveTask(event) {
     event.preventDefault();
-    const body = { date, status, title, description };
+    const body = { date, status, title };
     await services.updateTodoById(taskInEditing._id, body, headers);
     setEditMode(false);
     setTodos([
