@@ -23,20 +23,20 @@ function TaskCreator({ setNewTaskField }) {
 
   function taskEditor() {
     return (
-      <form className='d-flex justify-content-center task'>
-        <h2 className='option-task'> Nova tarefa: </h2>
+      <li className='d-flex justify-content-around'>
+        <h3 className=''> Nova tarefa: </h3>
 
         <input
           type='date'
           value={date}
           onChange={({ target }) => setDate(target.value)}
-          className='btn btn-light option-task'
+          className='btn btn-light'
         />
 
         <select
           value={status}
           onChange={({ target }) => setStatus(target.value)}
-          className=' dropdown option-task'
+          className=' dropdown '
         >
           <option
             className='btn btn-secondary dropdown-toggle'
@@ -63,13 +63,13 @@ function TaskCreator({ setNewTaskField }) {
             type='text'
             value={title}
             onChange={({ target }) => setTitle(target.value)}
-            className='btn btn-light option-task'
+            className='btn btn-light '
           />
         </label>
 
         <div>
           <button
-            className='btn btn-success option-task'
+            className='btn btn-success '
             type='button'
             onClick={(e) => {
               saveTask(e);
@@ -79,7 +79,7 @@ function TaskCreator({ setNewTaskField }) {
           </button>
 
           <button
-            className='btn btn-warning option-task'
+            className='btn btn-warning '
             type='button'
             onClick={(e) => {
               setNewTaskField(false);
@@ -88,7 +88,7 @@ function TaskCreator({ setNewTaskField }) {
             Cancelar
           </button>
         </div>
-      </form>
+      </li>
     );
   }
 

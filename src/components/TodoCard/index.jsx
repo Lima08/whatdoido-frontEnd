@@ -35,7 +35,9 @@ function TodoCards({ todoList, excludeTask }) {
   //  Passar esse forms para um componente
   if (editMode) {
     return (
-      <li className='d-flex justify-content-center task'>
+      <li className='d-flex justify-content-around task'>
+        <h3 className=''> Modo edição: </h3>
+
         <input
           type='date'
           value={date}
@@ -68,15 +70,12 @@ function TodoCards({ todoList, excludeTask }) {
           </option>
         </select>
 
-        <label>
-          Titulo:
-          <input
-            type='text'
-            value={title}
-            onChange={({ target }) => setTitle(target.value)}
-            className='btn btn-light option-task'
-          />
-        </label>
+        <input
+          type='text'
+          value={title}
+          onChange={({ target }) => setTitle(target.value)}
+          className='btn btn-light option-task'
+        />
 
         <div>
           <button
@@ -88,7 +87,7 @@ function TodoCards({ todoList, excludeTask }) {
           </button>
 
           <button
-            className='btn btn-warning option-task'
+            className='btn btn-warning'
             type='button'
             onClick={() => setEditMode(false)}
           >
@@ -100,20 +99,20 @@ function TodoCards({ todoList, excludeTask }) {
   }
 
   return todoList.map((task, index) => (
-    <li key={index} className='d-flex justify-content-center task'>
+    <li key={index} className='d-flex justify-content-around'>
       <span className='option-task'>{task.date}</span>
       <span className='option-task '>{task.status}</span>
-      <h2 className='option-task'>{task.title}</h2>
+      <h2 className='task'>{task.title}</h2>
 
       <button
-        className='btn btn-warning option-task option-task'
+        className='btn btn-warning option-task option-task-btn'
         onClick={() => taskEditor(task)}
       >
         Editar
       </button>
 
       <button
-        className='btn btn-danger option-task '
+        className='btn btn-danger option-task-btn'
         onClick={(e) => excludeTask(task._id)}
       >
         X

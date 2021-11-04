@@ -5,11 +5,15 @@ import services from '../services';
 function TodoProvider({ children }) {
   const [baseTodos, setBaseTodos] = useState([]);
   const [todos, setTodos] = useState([]);
+  const [userName, setUserName] = useState('');
   const [headers, setHeaders] = useState({
     headers: { 'Content-Type': 'application/json', authorization: '' },
   });
 
   useEffect(() => {
+    if (headers === '') {
+      return;
+    }
     const {
       headers: { authorization },
     } = headers;
@@ -38,6 +42,8 @@ function TodoProvider({ children }) {
     setTodos,
     headers,
     setHeaders,
+    userName,
+    setUserName,
   };
 
   return (

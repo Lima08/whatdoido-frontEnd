@@ -3,10 +3,13 @@ import TodoCards from '../../components/TodoCard';
 import services from '../../services';
 import TodoContext from '../../context/TodoContext';
 import TaskCreator from '../../components/taskCreator';
+import { useNavigate } from 'react-router-dom';
 import '../../styles/todoBoard.css';
 
 function TodoBoard() {
-  const { headers, todos, setTodos, baseTodos } = useContext(TodoContext);
+  const navigate = useNavigate();
+  const { headers, setHeaders, todos, setTodos, baseTodos, userName } =
+    useContext(TodoContext);
   const [order, setOrder] = useState(true);
   const [colunm, setcolunm] = useState('title');
   const [newTaskField, setNewTaskField] = useState(false);
@@ -52,6 +55,11 @@ function TodoBoard() {
   function menu() {
     return (
       <section className='menu'>
+        <div className='card'>
+          <h3>{`Olá, ${userName}!`}</h3>
+          <h4>{`Você tem ${todos.length} tarefas.`}</h4>
+        </div>
+
         <button
           className='btn btn-light menu-btn'
           onClick={(e) => {
@@ -109,10 +117,13 @@ function TodoBoard() {
 
         <button
           className='btn btn-light menu-btn'
-          onClick={() => {}}
+          onClick={() => {
+            setHeaders('');
+            navigate('/', { replace: true });
+          }}
           type='button'
         >
-          IMPLEMENTAR LOGOUT
+          Sair
         </button>
       </section>
     );
@@ -121,11 +132,13 @@ function TodoBoard() {
   return (
     <div className='board'>
       {menu()}
-      {newTaskField && <TaskCreator setNewTaskField={setNewTaskField} />}
+      <section className='task-area'>
+        {newTaskField && <TaskCreator setNewTaskField={setNewTaskField} />}
 
-      <ul className=''>
-        <TodoCards todoList={todos} excludeTask={excludeTask} />
-      </ul>
+        <ul className=''>
+          <TodoCards todoList={todos} excludeTask={excludeTask} />
+        </ul>
+      </section>
     </div>
   );
 }

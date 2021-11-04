@@ -5,8 +5,7 @@ import TodoContext from '../../context/TodoContext';
 
 function Login() {
   const navigate = useNavigate();
-  const { setHeaders } = useContext(TodoContext);
-  const [userName, setUserName] = useState('');
+  const { setHeaders, userName, setUserName } = useContext(TodoContext);
   const [email, setEmail] = useState('');
   const [password, setPAssword] = useState('');
 

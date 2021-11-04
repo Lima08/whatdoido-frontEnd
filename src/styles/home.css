@@ -2,6 +2,7 @@
   background-color: #ebebeb;
   width: 100vw;
   height: 100vh;
+  margin: 0 auto;
 }
 
 .header {
@@ -9,7 +10,7 @@
   display: flex;
   justify-content: center;
   height: 8vh;
-  padding: 10px;
+  padding: 5px;
   align-items: center;
 }
 
@@ -23,6 +24,6 @@
 .header-search {
   width: 50%;
   height: 60%;
-  margin: 0 5vw;
+  margin: 0 auto;
   
 }

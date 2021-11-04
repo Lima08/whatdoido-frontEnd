@@ -4,11 +4,37 @@
   flex-direction: row;
 }
 
-.option-task {
-  margin: 5px 10px;
+.task {
+  margin: 1vh auto;
+  width: 100%;
+  height: 4vh;
+  margin: 1vh auto;
 }
 
-.task:hover {
+.option-task {
+  margin: 1vh auto;
+  width: 20%;
+  text-align: center;
+}
+
+.option-task-btn {
+  margin: .2rem;
+  width: 15vw;
+  height: 4vh;
+}
+
+.task-area {
+  width: 100vw;
+  background-color: #ede5fc;
+  padding: 1vw;
+}
+
+.task-area li {
+  align-items:center;
+  align-content: center;
+}
+
+li:hover {
   background-color: rgb(243, 242, 242);
   cursor: pointer;
 }
