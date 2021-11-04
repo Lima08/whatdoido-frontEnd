@@ -1,5 +1,5 @@
 import axios from 'axios';
-const URL = 'http://localhost:3000/';
+const URL = 'https://lima-whatdoido.herokuapp.com/';
 
 async function newUser(userName, email, password ) {
   const token = await axios.post(`${URL}users`, {name: userName, email, password}).catch((error) => {
