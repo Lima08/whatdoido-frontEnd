@@ -2,7 +2,7 @@ import React, { useContext, useState } from 'react';
 import services from '../../services';
 import TodoContext from '../../context/TodoContext';
 
-function TaskCreator({ setMenuField, setNewTaskField }) {
+function TaskCreator({ setNewTaskField }) {
   const { headers, todos, setTodos } = useContext(TodoContext);
   const [date, setDate] = useState('');
   const [status, setStatus] = useState('Pendente');
@@ -19,7 +19,6 @@ function TaskCreator({ setMenuField, setNewTaskField }) {
     setTodos(newTodoList);
 
     setNewTaskField(false);
-    setMenuField(true);
   }
 
   function taskEditor() {
@@ -73,7 +72,6 @@ function TaskCreator({ setMenuField, setNewTaskField }) {
             className='btn btn-success option-task'
             type='button'
             onClick={(e) => {
-              setMenuField(false);
               saveTask(e);
             }}
           >
@@ -84,7 +82,6 @@ function TaskCreator({ setMenuField, setNewTaskField }) {
             className='btn btn-warning option-task'
             type='button'
             onClick={(e) => {
-              setMenuField(true);
               setNewTaskField(false);
             }}
           >
