@@ -6,13 +6,12 @@ function TaskCreator({ setMenuField, setNewTaskField }) {
   const { headers, todos, setTodos } = useContext(TodoContext);
   const [date, setDate] = useState('');
   const [status, setStatus] = useState('Pendente');
-  const [title, setTitle] = useState('Nova tarefa');
-  const [description, setDescription] = useState('');
+  const [title, setTitle] = useState('');
 
   async function saveTask(event) {
     event.preventDefault();
 
-    const body = { date, status, title, description };
+    const body = { date, status, title };
     const response = await services.addTodo(body, headers);
     const { todoId } = response;
 
@@ -20,22 +19,25 @@ function TaskCreator({ setMenuField, setNewTaskField }) {
     setTodos(newTodoList);
 
     setNewTaskField(false);
+    setMenuField(true);
   }
 
   function taskEditor() {
     return (
-      <form className=' d-flex justify-content-between flex-wrap'>
+      <form className='d-flex justify-content-center task'>
+        <h2 className='option-task'> Nova tarefa: </h2>
+
         <input
           type='date'
           value={date}
           onChange={({ target }) => setDate(target.value)}
-          className='btn btn-light menu'
+          className='btn btn-light option-task'
         />
 
         <select
           value={status}
           onChange={({ target }) => setStatus(target.value)}
-          className=' dropdown menu'
+          className=' dropdown option-task'
         >
           <option
             className='btn btn-secondary dropdown-toggle'
@@ -58,31 +60,20 @@ function TaskCreator({ setMenuField, setNewTaskField }) {
         </select>
 
         <label>
-          Titulo:
           <input
             type='text'
             value={title}
             onChange={({ target }) => setTitle(target.value)}
-            className='btn btn-light menu'
-          />
-        </label>
-
-        <label>
-          Descrição:
-          <input
-            type='text'
-            value={description}
-            onChange={({ target }) => setDescription(target.value)}
-            className='btn btn-light menu'
+            className='btn btn-light option-task'
           />
         </label>
 
         <div>
           <button
-            className='btn btn-success menu'
-            type='submit'
+            className='btn btn-success option-task'
+            type='button'
             onClick={(e) => {
-              setMenuField(true);
+              setMenuField(false);
               saveTask(e);
             }}
           >
@@ -90,13 +81,14 @@ function TaskCreator({ setMenuField, setNewTaskField }) {
           </button>
 
           <button
-            className='btn btn-warning menu'
-            type='submit'
+            className='btn btn-warning option-task'
+            type='button'
             onClick={(e) => {
               setMenuField(true);
+              setNewTaskField(false);
             }}
           >
-            cancelar
+            Cancelar
           </button>
         </div>
       </form>

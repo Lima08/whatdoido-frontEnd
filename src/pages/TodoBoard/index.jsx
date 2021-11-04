@@ -5,24 +5,25 @@ import TodoContext from '../../context/TodoContext';
 import TaskCreator from '../../components/taskCreator';
 
 function TodoBoard() {
-  const { headers, setHeaders, todos, setTodos, baseTodos } = useContext(
-    TodoContext
-  );
+  const { headers, setHeaders, todos, setTodos, baseTodos } =
+    useContext(TodoContext);
   const [userName, setUserName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPAssword] = useState('');
-  const [newTaskField, setNewTaskField] = useState(false);
-  const [order, setOrder] = useState(1);
+  const [order, setOrder] = useState(true);
   const [colunm, setcolunm] = useState('title');
-  const [statusFilter, setStatusFilter] = useState('Todas');
-  const [menuField, setMenuField] = useState(false);
+  // const [statusFilter, setStatusFilter] = useState('Todas');
+  const [menuField, setMenuField] = useState(true);
   const [loginField, setLoginField] = useState(true);
+  const [newTaskField, setNewTaskField] = useState(false);
 
   async function newUser(event) {
     event.preventDefault();
     const result = await services.newUser(userName, email, password);
     console.log(result);
-
+    setUserName('');
+    setEmail('');
+    setPAssword('');
     if (result.error) {
       alert(`${result.error.response.data.message}`);
       return;
@@ -33,6 +34,12 @@ function TodoBoard() {
 
   async function submitLogin(event) {
     event.preventDefault();
+
+    if (!userName || userName.length < 3) {
+      alert(`Nome é obrigatorio`);
+      return;
+    }
+
     const result = await services.authentication({ email, password });
 
     if (result.error) {
@@ -40,8 +47,9 @@ function TodoBoard() {
       return;
     }
 
-    setLoginField(false);
-    setMenuField(true);
+    //  Ativa / desativas campos
+    // setLoginField(false);
+    // setMenuField(true);
     setHeaders({
       headers: {
         Accept: 'application/json',
@@ -116,10 +124,12 @@ function TodoBoard() {
   }
 
   function handleFilter(value) {
-    setStatusFilter(value);
-    const arrayFiltered = baseTodos.filter(
-      (task) => task.status === statusFilter
-    );
+    // setStatusFilter(value);
+    if (value === 'Todas') {
+      setTodos(baseTodos);
+      return;
+    }
+    const arrayFiltered = baseTodos.filter((task) => task.status === value);
     if (!arrayFiltered.length) {
       alert(`Não existe tarefas ${value}`);
       setTodos(baseTodos);
@@ -130,13 +140,18 @@ function TodoBoard() {
   }
 
   function handleOrder(field) {
-    setOrder(-order);
+    setOrder(!order);
     setcolunm(field);
-    setTodos(
-      todos.sort((a, b) => {
-        return a[colunm] < b[colunm] ? -order : order;
-      })
-    );
+
+    const orderedArray = todos.sort((a, b) => {
+      if (order) {
+        return a[colunm] < b[colunm] ? -1 : 1;
+      }
+
+      return a[colunm] > b[colunm] ? -1 : 1;
+    });
+
+    setTodos(orderedArray);
   }
 
   async function excludeTask(id) {
@@ -149,11 +164,10 @@ function TodoBoard() {
 
   function menu() {
     return (
-      <div className=' d-flex justify-content-center'>
+      <div className=''>
         <select
           className=' dropdown'
           onChange={({ target }) => {
-            setOrder(target.value);
             handleFilter(target.value);
           }}
         >
@@ -183,14 +197,14 @@ function TodoBoard() {
         <button
           className='btn btn-light menu'
           type='button'
-          onClick={(e) => handleOrder('title')}
+          onClick={() => handleOrder('title')}
         >
           Ordem alfabética
         </button>
 
         <button
           className='btn btn-light menu'
-          onClick={(e) => handleOrder('date')}
+          onClick={() => handleOrder('date')}
           type='button'
         >
           Data
@@ -199,8 +213,8 @@ function TodoBoard() {
         <button
           className='btn btn-light menu'
           onClick={(e) => {
-            setMenuField(!menuField);
-            setNewTaskField(!newTaskField);
+            setMenuField(false);
+            setNewTaskField(true);
           }}
           type='button'
         >
@@ -226,9 +240,9 @@ function TodoBoard() {
         />
       )}
 
-      <div className='d-flex flex-wrap justify-content-around'>
+      <ul className=''>
         <TodoCards todoList={todos} excludeTask={excludeTask} />
-      </div>
+      </ul>
     </div>
   );
 }
