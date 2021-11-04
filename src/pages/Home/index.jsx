@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import TodoBoard from '../TodoBoard';
 import '../../styles/home.css';
+import TodoContext from '../../context/TodoContext';
 
 function Home() {
+  const { setTodos, baseTodos } = useContext(TodoContext);
+
+  function filterByInput(text) {
+    const filteredArray = baseTodos.filter((task) => task.title.includes(text));
+    setTodos(filteredArray);
+    return;
+  }
+
   return (
     <div className='home'>
       <div className='header'>
@@ -11,6 +20,7 @@ function Home() {
           className='header-search'
           type='text'
           placeholder='   Pesquisa...'
+          onChange={({ target }) => filterByInput(target.value)}
         />
       </div>
       <TodoBoard />
@@ -20,6 +30,3 @@ function Home() {
 
 export default Home;
 
-// {/* ter um componente cabeçario */}
-// {/* ter um componente painel com nova tarefa, status, forma de ordenar alfabetica e por data  */}
-// {/* Ter ium componente TodoBoard que renderiza subcomponentes Todo  */}

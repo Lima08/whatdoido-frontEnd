@@ -38,6 +38,7 @@ function TodoProvider({ children }) {
 
   const storage = {
     baseTodos,
+    setBaseTodos,
     todos,
     setTodos,
     headers,
