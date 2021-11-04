@@ -1,11 +1,19 @@
 import React from 'react';
 import TodoProvider from '../../context/todoProvider';
 import TodoBoard from '../TodoBoard/index';
+import '../../styles/home.css';
 
 function Home() {
   return (
     <TodoProvider>
-      <TodoBoard />
+      <div className='home'>
+        <div className='header'>
+          <h1>What do I do?</h1>
+          <input className='header-search' type='text' placeholder='   Pesquisa...' />
+        </div>
+
+        <TodoBoard />
+      </div>
     </TodoProvider>
   );
 }

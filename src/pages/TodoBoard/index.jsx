@@ -47,9 +47,6 @@ function TodoBoard() {
       return;
     }
 
-    //  Ativa / desativas campos
-    // setLoginField(false);
-    // setMenuField(true);
     setHeaders({
       headers: {
         Accept: 'application/json',
@@ -124,7 +121,6 @@ function TodoBoard() {
   }
 
   function handleFilter(value) {
-    // setStatusFilter(value);
     if (value === 'Todas') {
       setTodos(baseTodos);
       return;
@@ -164,7 +160,18 @@ function TodoBoard() {
 
   function menu() {
     return (
-      <div className=''>
+      <section className=''>
+        <button
+          className='btn btn-light menu'
+          onClick={(e) => {
+            setMenuField(false);
+            setNewTaskField(true);
+          }}
+          type='button'
+        >
+          Nova
+        </button>
+
         <select
           className=' dropdown'
           onChange={({ target }) => {
@@ -210,17 +217,10 @@ function TodoBoard() {
           Data
         </button>
 
-        <button
-          className='btn btn-light menu'
-          onClick={(e) => {
-            setMenuField(false);
-            setNewTaskField(true);
-          }}
-          type='button'
-        >
-          Nova
+        <button className='btn btn-light menu' onClick={() => {}} type='button'>
+          IMPLEMENTAR LOGOUT
         </button>
-      </div>
+      </section>
     );
   }
 
@@ -232,6 +232,7 @@ function TodoBoard() {
           {formLogin()}
         </div>
       )}
+
       {menuField && menu()}
       {newTaskField && (
         <TaskCreator
