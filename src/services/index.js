@@ -1,6 +1,13 @@
 import axios from 'axios';
 const URL = 'http://localhost:3000/';
 
+async function newUser(userName, email, password ) {
+  const token = await axios.post(`${URL}users`, {name: userName, email, password}).catch((error) => {
+    return { error };
+  });
+  return token;
+}
+
 async function authentication(body) {
   const token = await axios.post(`${URL}login`, body).catch((error) => {
     return { error };
@@ -41,6 +48,7 @@ async function updateTodoById(id, body, headers) {
 }
 
 const services = {
+  newUser,
   authentication,
   addTodo,
   getAllTodo,

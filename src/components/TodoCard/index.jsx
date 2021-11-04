@@ -34,32 +34,47 @@ function TodoCards({ todoList, excludeTask }) {
     setEditMode(editing);
   }
 
-  //  PAssar esse forms para um componente
+  //  Passar esse forms para um componente
   if (editMode) {
     return (
-      <form>
+      <form className=' d-flex justify-content-between flex-wrap'>
         <input
           type='date'
           value={date}
           onChange={({ target }) => setDate(target.value)}
+          className='btn btn-light menu'
         />
-        <label>
-          status:
-          <select
-            value={status}
-            onChange={({ target }) => setStatus(target.value)}
+        <select
+          value={status}
+          onChange={({ target }) => setStatus(target.value)}
+          className=' dropdown menu'
+        >
+          <option
+            className='btn btn-secondary dropdown-toggle'
+            value='Pendente'
           >
-            <option value='Pendente'>Pendente</option>
-            <option value='Em andamento'>Em andamento</option>
-            <option value='Concluído'>Concluido</option>
-          </select>
-        </label>
+            Pendente
+          </option>
+          <option
+            className='btn btn-secondary dropdown-toggle'
+            value='Em andamento'
+          >
+            Em andamento
+          </option>
+          <option
+            className='btn btn-secondary dropdown-toggle'
+            value='Concluído'
+          >
+            Concluido
+          </option>
+        </select>
         <label>
           Titulo:
           <input
             type='text'
             value={title}
             onChange={({ target }) => setTitle(target.value)}
+            className='btn btn-light menu'
           />
         </label>
         <label>
@@ -68,32 +83,42 @@ function TodoCards({ todoList, excludeTask }) {
             type='text'
             value={description}
             onChange={({ target }) => setDescription(target.value)}
+            className='btn btn-light menu'
           />
         </label>
         <div>
-          <button type='submit' onClick={(e) => saveTask(e)}>
+          <button
+            className='btn btn-success'
+            type='submit'
+            onClick={(e) => saveTask(e)}
+          >
             Salvar
           </button>
         </div>
       </form>
     );
   }
-  
+
   return todoList.map((task, index) => (
-    <div key={index}>
-      <div>
-        <p>{task.date}</p>
-        <p>{task.status}</p>
+    <div key={index} className='card test'>
+      <div className='card-header d-flex justify-content-between'>
+        <span>{task.status}</span>
+        <span>{task.date}</span>
       </div>
-
-      <div>
-        <h2>{task.title}</h2>
-        <p>{task.description}</p>
+      <div className='card-body'>
+        <h2 className='card-title'>{task.title}</h2>
+        <p className='card-text'>{task.description}</p>
       </div>
-
-      <div>
-        <button onClick={(e) => excludeTask(task._id)}>X</button>
-        <button onClick={() => taskEditor(task)}>Editar</button>
+      <div className='card-header d-flex justify-content-between'>
+        <button className='btn btn-warning' onClick={() => taskEditor(task)}>
+          Editar
+        </button>
+        <button
+          className='btn btn-danger'
+          onClick={(e) => excludeTask(task._id)}
+        >
+          X
+        </button>
       </div>
     </div>
   ));
