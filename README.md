@@ -1,70 +1,98 @@
-# Getting Started with Create React App
+# Boas vindas ao projeto "What do I do?"
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Projeto realizado durante a ação ":rotating_light: Blitz de carreira :rotating_light:" da Trybe.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+# Sumário
 
-### `yarn start`
+- [Habilidades](#habilidades)
+- [Missão](#missão)
+- [Data de entrega](#entrega)
+- [Rodando o projeto localmente](#Rodando)
+- [Deploy](#Deploy)
+- [Continuação do projeto](#Continuaçãodoprojeto)
+- [Considerações finais](#Consideraçõesfinais)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+---
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# Habilidades
 
-### `yarn test`
+Nesse projeto busquei demostrar minhas habilidades com:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- HTML, CSS e JS
+- React
+- React hooks
+- Context API
+- Navegação com React-Router-DOM
+- Bootstrap
+- Git
 
-### `yarn build`
+---
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Missão
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Contexto:**A empresa **Ebytr** está passando por problemas de produtividade/controle porque as pessoas colaboradoras vêm tendo dificuldade na organização de suas tarefas individuais. Por esse motivo, a diretora de produto Carolina Bigonha decidiu implantar uma nova forma de organizar as tarefas.Você foi a pessoa contratada para desenvolver um sistema capaz de auxiliar as pessoas colaboradoras a se organizar e ter mais produtividade. Na **Ebytr** o time de desenvolvimento utiliza a Stack [MERN](https://www.mongodb.com/mern-stack) para criar suas aplicações. Foi combinado com a **Ebytr** que você utilizará essa mesma Stack para resolver o problema de organização e produtividade da empresa.Abaixo estão (i) os requisitos técnicos, (ii) as funcionalidades, (iii) critérios de avaliação do desafio e (iv) algumas dicas importantes.**Requisitos técnicos:**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Front-End em **React**;
+2. Back-End em **NodeJS**, com **MongoDB**;
+3. Arquitetura em **camadas**;
 
-### `yarn eject`
+**Funcionalidades:**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+1. Visualizar a lista de tarefas;
+2. Esta lista deve ser ordenável por ordem alfabética, data de criação ou por status;
+3. Inserir uma nova tarefa na lista;
+4. Remover uma tarefa da lista;
+5. Atualizar uma tarefa da lista;
+6. A tarefa deve possuir um status editável: pendente, em andamento ou pronto;
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+# Entrega
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- Dia 05/11(Sexta-feira) às 12h.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+# Rodando o projeto localmente
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Para rodar o projeto localmente siga os seguintes passos:
 
-### Code Splitting
+1. Clone o repositório com o comando `git clone`. Utilize a URL `git@github.com:Lima08/whatdoido-frontEnd.git`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. Entre na pasta do projeto e instale as dependências utilizando o comando `npm install` no terminal.
+3. Ainda no terminal utilize o comando `npm start` para iniciar a aplicação.
 
-### Analyzing the Bundle Size
+A aplicação está configurada para consumir o back-end construído para esse projeto. Caso queira utilizar o back-end localmente você pode clonar o seguinte repositório:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- `git@github.com:Lima08/whatDoIDo-backEnd.git`
 
-### Making a Progressive Web App
+Feito isso será necessario trocar a URL da linha 2 do arquivo `index.js` da pasta services desse projeto para a URL do seu localhost.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+# Deploy
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Utilizei Heroku para deploy da aplicação. A mesma está disponível nesse link [aqui](https://lima-whatdoido-frontend.herokuapp.com/)!
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+# Continuação do projeto
 
-### `yarn build` fails to minify
+Para a continuação do projeto e melhoria de suas funcionalidades segue alguns possíveis caminhos:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Criação dos testes da aplicação.
+- Versão sem login utilizando o localstorage para salvar as preferências do usuário.
+- Adicionar calendário com as próximas tarefas.
+- Configurar a página `NotFound`.
+
+---
+
+# Considerações finais
+
+Gostaria de agradecer toda equipe Trybe por essa oportunidade de colocar meus conhecimentos em prática. Essa aplicação foi feita com muita dedicação e é fruto dos meus estudos atuais. Qualquer dúvida ou sugestão fique a vontade para me passar seu feedback. 🎯👨‍💻
+
+**Agir, eis a inteligência verdadeira. Serei o que quiser. Mas tenho que querer o que for. O êxito está em ter êxito, e não em ter condições de êxito. Condições de palácio tem qualquer terra larga, mas onde estará o palácio se não o fizerem ali?**
+
+_Fernando Pessoa SOARES, B. Livro do Desassossego. Vol.II. Lisboa: Ática. 1982. 85p._
